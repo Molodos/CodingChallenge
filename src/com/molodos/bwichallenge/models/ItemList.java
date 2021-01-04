@@ -92,10 +92,13 @@ public class ItemList {
             for(Item item : items) {
                 ItemTuple add = tuple.copy();
                 if(add.getItemCount(item) >= item.getUnits()) {
+                    continue;
+                }
+                add.addItem(item.copy(1));
+                tuples.add(add);
+                if(add.size() > 1 && item.equals(add.getFirstItem())) {
                     break;
                 }
-                add.addItem(item);
-                tuples.add(add);
             }
         }
         return tuples;

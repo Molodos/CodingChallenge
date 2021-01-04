@@ -19,6 +19,10 @@ public class Truck implements Comparable<Truck> {
         return items.addItem(item);
     }
 
+    public boolean removeItem(Item item) {
+        return items.removeItem(item);
+    }
+
     public double getRemainingG() {
         return items.getRemainingWeight();
     }
@@ -38,11 +42,10 @@ public class Truck implements Comparable<Truck> {
 
     @Override
     public String toString() {
-        double totalValue = 0;
         String representation = name + ":\n";
         representation += items.toString();
         representation += "Weight left: " + items.getRemainingWeight() + "g\n";
-        representation += "Total value: " + totalValue;
+        representation += "Total value: " + items.getTotalValue();
         return representation;
     }
 }

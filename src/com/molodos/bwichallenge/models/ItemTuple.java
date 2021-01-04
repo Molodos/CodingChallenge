@@ -13,6 +13,10 @@ public class ItemTuple {
         return tupleNew;
     }
 
+    public List<Item> getAllItems() {
+        return items;
+    }
+
     public void addItem(Item item) {
         items.add(item);
     }
@@ -25,6 +29,18 @@ public class ItemTuple {
             }
         }
         return count;
+    }
+
+    public Item getFirstItem() {
+        if(items.size() > 0) {
+            return items.get(0);
+        } else {
+            return null;
+        }
+    }
+
+    public int size() {
+        return items.size();
     }
 
     public double getTotalValue() {
@@ -41,5 +57,18 @@ public class ItemTuple {
             total += item.getTotalWeight();
         }
         return total;
+    }
+
+    @Override
+    public String toString() {
+        String str = "[";
+        for(Item item : items) {
+            if(!str.equals("[")) {
+                str += ", ";
+            }
+            str += item.getName();
+        }
+        str += "]";
+        return str;
     }
 }

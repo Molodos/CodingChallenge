@@ -16,12 +16,20 @@ public class Item implements Comparable<Item> {
         efficiency = value / weightG;
     }
 
+    public Item copy(int units) {
+        return new Item(name, units, weightG, value);
+    }
+
     public double getWeight() {
         return weightG;
     }
 
     public double getValue() {
         return value;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public double getTotalWeight() {
