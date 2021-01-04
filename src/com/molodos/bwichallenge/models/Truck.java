@@ -37,7 +37,7 @@ public class Truck implements Comparable<Truck> {
 
     @Override
     public int compareTo(Truck o) {
-        return Double.compare(o.capacityG - o.driverG, capacityG - driverG);
+        return Double.compare(capacityG - driverG, o.capacityG - o.driverG);
     }
 
     @Override

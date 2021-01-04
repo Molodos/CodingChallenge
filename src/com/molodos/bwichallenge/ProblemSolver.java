@@ -11,16 +11,22 @@ import java.util.List;
 public class ProblemSolver {
 
     public static void main(String[] args) {
+        calculate(true);
+    }
+
+    private static void calculate(boolean details) {
         ItemList items = DataProvider.getSortedItems();
         Truck[] trucks = DataProvider.getTrucks();
         double totalValue = 0;
-        for(int i = trucks.length - 1; i >= 0 ; i--) {
-            fillTruck(trucks[i], items);
-            optimizeTruck(trucks[i], items, 5);
+        for(Truck truck : trucks) {
+            fillTruck(truck, items);
+            optimizeTruck(truck, items, 5);
         }
         for(Truck truck : trucks) {
             totalValue += truck.getTotalValue();
-            System.out.println(truck.toString() + "\n");
+            if(details) {
+                System.out.println(truck.toString() + "\n");
+            }
         }
         System.out.println("Total value (all trucks): " + totalValue);
     }
@@ -61,5 +67,4 @@ public class ProblemSolver {
             break;
         }
     }
-
 }

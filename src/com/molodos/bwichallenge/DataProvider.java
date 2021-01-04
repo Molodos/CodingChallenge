@@ -5,6 +5,7 @@ import com.molodos.bwichallenge.models.ItemList;
 import com.molodos.bwichallenge.models.Truck;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class DataProvider {
@@ -28,6 +29,7 @@ public class DataProvider {
         List<Truck> items = new ArrayList<>();
         items.add(new Truck("Truck 1", 1100000, 72400));
         items.add(new Truck("Truck 2", 1100000, 85700));
+        Collections.sort(items);
         return items.toArray(new Truck[0]);
     }
 }
