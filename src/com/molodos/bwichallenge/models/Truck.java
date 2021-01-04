@@ -1,17 +1,48 @@
 package com.molodos.bwichallenge.models;
 
-public class Truck {
+import java.util.List;
 
+public class Truck implements Comparable<Truck> {
+
+    private final String name;
     private final double capacityG, driverG;
-    private double remainingG;
+    private final ItemList items;
 
-    public Truck(double capacityG, double driverG) {
+    public Truck(String name, double capacityG, double driverG) {
+        this.name = name;
         this.capacityG = capacityG;
         this.driverG = driverG;
-        remainingG = capacityG - driverG;
+        items = new ItemList(capacityG - driverG);
     }
 
-    public double getremainingG() {
-        return remainingG;
+    public boolean addItem(Item item) {
+        return items.addItem(item);
+    }
+
+    public double getRemainingG() {
+        return items.getRemainingWeight();
+    }
+
+    public double getTotalValue() {
+        return items.getTotalValue();
+    }
+
+    public List<ItemTuple> getAllTuples(int size) {
+        return items.getAllTuples(size);
+    }
+
+    @Override
+    public int compareTo(Truck o) {
+        return Double.compare(o.capacityG - o.driverG, capacityG - driverG);
+    }
+
+    @Override
+    public String toString() {
+        double totalValue = 0;
+        String representation = name + ":\n";
+        representation += items.toString();
+        representation += "Weight left: " + items.getRemainingWeight() + "g\n";
+        representation += "Total value: " + totalValue;
+        return representation;
     }
 }
