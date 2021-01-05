@@ -42,16 +42,16 @@ public class DataProvider {
         ItemList itemList = new ItemList();
 
         // Add all possible items to the ItemList
-        itemList.addItem(new Item("Notebook Büro 13\"", 205, 2451, 40));
-        itemList.addItem(new Item("Notebook Büro 14\"", 420, 2978, 35));
-        itemList.addItem(new Item("Notebook outdoor", 450, 3625, 80));
-        itemList.addItem(new Item("Mobiltelefon Büro", 60, 717, 30));
-        itemList.addItem(new Item("Mobiltelefon Outdoor", 157, 988, 60));
-        itemList.addItem(new Item("Mobiltelefon Heavy Duty", 220, 1220, 65));
-        itemList.addItem(new Item("Tablet Büro klein", 620, 1405, 40));
-        itemList.addItem(new Item("Tablet Büro groß", 250, 1455, 40));
-        itemList.addItem(new Item("Tablet outdoor klein", 540, 1690, 45));
-        itemList.addItem(new Item("Tablet outdoor groß", 370, 1980, 68));
+        itemList.addItem(new Item("Notebook Büro 13\"", 40, 205, 2451));
+        itemList.addItem(new Item("Notebook Büro 14\"", 35, 420, 2978));
+        itemList.addItem(new Item("Notebook outdoor", 80, 450, 3625));
+        itemList.addItem(new Item("Mobiltelefon Büro", 30, 60, 717));
+        itemList.addItem(new Item("Mobiltelefon Outdoor", 60, 157, 988));
+        itemList.addItem(new Item("Mobiltelefon Heavy Duty", 65, 220, 1220));
+        itemList.addItem(new Item("Tablet Büro klein", 40, 620, 1405));
+        itemList.addItem(new Item("Tablet Büro groß", 40, 250, 1455));
+        itemList.addItem(new Item("Tablet outdoor klein", 45, 540, 1690));
+        itemList.addItem(new Item("Tablet outdoor groß", 68, 370, 1980));
 
         // Return the ItemList
         return itemList;
