@@ -34,7 +34,7 @@ public class ProblemSolver {
                 }
             }
         }
-        System.out.println("done");
+        System.out.println("done\n");
         printStats(trucks);
     }
 
