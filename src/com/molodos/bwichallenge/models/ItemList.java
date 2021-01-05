@@ -61,10 +61,6 @@ public class ItemList {
         return totalValue;
     }
 
-    public double getTotalWeight() {
-        return totalWeight;
-    }
-
     public double getRemainingWeight() {
         return maxWeight - totalWeight;
     }
@@ -108,7 +104,12 @@ public class ItemList {
     public String toString() {
         String representation = "";
         for(Item item : items) {
-            representation += "- " + item.toString() + "\n";
+            if(item.getUnits() > 0) {
+                if (!representation.equals("")) {
+                    representation += "\n";
+                }
+                representation += "- " + item.toString();
+            }
         }
         return representation;
     }

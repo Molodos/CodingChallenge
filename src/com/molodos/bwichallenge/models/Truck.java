@@ -38,7 +38,7 @@ public class Truck {
     @Override
     public String toString() {
         String representation = name + ":\n";
-        representation += items.toString();
+        representation += items.toString() + "\n";
         representation += "Weight left: " + items.getRemainingWeight() + "g\n";
         representation += "Total value: " + items.getTotalValue();
         return representation;
