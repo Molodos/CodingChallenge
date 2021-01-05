@@ -1,4 +1,4 @@
-package com.molodos.bwichallenge.models;
+package com.molodos.codingchallenge.models;
 
 public class Item implements Comparable<Item> {
 
@@ -22,10 +22,6 @@ public class Item implements Comparable<Item> {
 
     public double getWeight() {
         return weightG;
-    }
-
-    public double getValue() {
-        return value;
     }
 
     public String getName() {

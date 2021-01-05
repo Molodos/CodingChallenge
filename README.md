@@ -20,16 +20,19 @@ Die Aufgabenstellung könnte als lineares Gleichungssystem mit Constraints und e
 2. Da man bei diesem Lösungsansatz lediglich die Aufgabenstellung umformulieren würde und die eigentliche Lösung des Problems dem bereits vorhandenen Solver überlässt, denke ich, dass dies nicht das Ziel des Wettbewerbs ist.
 
 ##3. Eigener Algorithmus zur Lösung
-1. Gegenstände nach Effizienz sortieren  
-2. Alle Transporter mit den effizientesten Gegenständen befüllen  
-3. Gegenstands-Gruppen zwischen je zwei Transportern versuchen so zu tauschen, dass das übrige Gewicht in einem Transporter maximal wird
-4. Für jeden Transporter versuchen, Gegenstands-Gruppen mit Gegenstands-Gruppen aus dem übrigen nicht verladenen Vorrat so zu tauschen, dass der Gesamtwert der Gegenstände im Transporter steigt  
-5. Falls in *3.* oder *4.* eine Änderung durchgeführt wurde, wieder zu *3.* springen und dort fortsetzen  
-6. Die Finale Beladung der Transporter ausgeben
+1. Gegenstände aus der Datei `items.csv` und Transporter aus der Datei `trucks.csv` einlesen
+2. Gegenstände nach Effizienz sortieren  
+3. Alle Transporter mit den effizientesten Gegenständen befüllen  
+4. Gegenstands-Gruppen zwischen je zwei Transportern versuchen so zu tauschen, dass das übrige Gewicht in einem Transporter maximal wird
+5. Für jeden Transporter versuchen, Gegenstands-Gruppen mit Gegenstands-Gruppen aus dem übrigen nicht verladenen Vorrat so zu tauschen, dass der Gesamtwert der Gegenstände im Transporter steigt  
+6. Falls in *4.* oder *5.* eine Änderung durchgeführt wurde, wieder zu *4.* springen und dort fortsetzen  
+7. Die Finale Beladung der Transporter ausgeben und in der Datei `solution.csv` speichern
 
 > Es werden bei Gegenstands-Gruppen immer nur alle möglichen Gruppen der Menge 1 bis 5 betrachtet, um die Laufzeit ohne signifikante Qualitätsverluste erheblich zu optimieren.
 
 > Für die gegebene Aufgabenstellung findet der Algorithmus eine optimale Lösung
+
+> Für andere Eingabewerte können die Dateien `items.csv` und `trucks.csv` editiert werden
 
 ##4. Ausführung des Lösungsprogramms
 ###4.1 Voraussetzungen
@@ -40,10 +43,10 @@ Die Aufgabenstellung könnte als lineares Gleichungssystem mit Constraints und e
 1. Im Stammverzeichnis des Repositories das Skript `start.sh` lokalisieren
 2. Das Skript entweder per Doppelklick oder aus der Konsole mit dem Befehle `sh ./start.sh` ausführen
 3. Das Programm wird nun kompiliert um anschließend automatisch ausgeführt
-4. Die Lösung erscheint nach der Berechnung in der Konsole und in der sich öffnenden Benutzeroberfläche 
+4. Die Lösung erscheint nach der Berechnung in der Konsole und in der sich öffnenden Benutzeroberfläche. Außerdem wird sie in der Datei `solution.csv` gespeichert
 
 ####4.1.2 Windows
 1. Im Stammverzeichnis des Repositories das Skript `start.bat` lokalisieren
 2. Das Skript entweder per Doppelklick oder aus der Konsole mit dem Befehle `./start.bat` ausführen
 3. Das Programm wird nun kompiliert um anschließend automatisch ausgeführt
-4. Die Lösung erscheint nach der Berechnung in der Konsole und in der sich öffnenden Benutzeroberfläche 
+4. Die Lösung erscheint nach der Berechnung in der Konsole und in der sich öffnenden Benutzeroberfläche. Außerdem wird sie in der Datei `solution.csv` gespeichert

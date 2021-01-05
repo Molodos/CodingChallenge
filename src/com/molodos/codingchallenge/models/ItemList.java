@@ -1,4 +1,4 @@
-package com.molodos.bwichallenge.models;
+package com.molodos.codingchallenge.models;
 
 import java.util.ArrayList;
 import java.util.Collections;

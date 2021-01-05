@@ -7,4 +7,4 @@ echo | set /p=Executing program...
 echo done
 echo.
 echo.
-java -cp .\classes com.molodos.bwichallenge.ProblemSolver
+java -cp .\classes com.molodos.codingchallenge.ProblemSolver

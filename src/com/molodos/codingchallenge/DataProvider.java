@@ -1,11 +1,10 @@
-package com.molodos.bwichallenge;
+package com.molodos.codingchallenge;
 
-import com.molodos.bwichallenge.models.Item;
-import com.molodos.bwichallenge.models.ItemList;
-import com.molodos.bwichallenge.models.Truck;
+import com.molodos.codingchallenge.models.Item;
+import com.molodos.codingchallenge.models.ItemList;
+import com.molodos.codingchallenge.models.Truck;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class DataProvider {
