@@ -48,7 +48,7 @@ public class ProblemSolver {
 
     /**
      * Fills Truck objects with items until there is no more space for any of the given items.
-     * Items with with a higher efficiency value (value/weight) will be taken first as ItemList objects are sorted by efficiency.
+     * Items with with a higher efficiency value (value/weight) will be taken first as ItemList objects are sorted by efficiency in descending order.
      *
      * @param trucks Truck objects to be filled with items
      * @param items  Items to be filled into the trucks
