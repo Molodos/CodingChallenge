@@ -26,7 +26,14 @@ public class ProblemSolver {
         boolean rebalancingDone = true;
         boolean optimizationDone = true;
         while(rebalancingDone || optimizationDone) {
-            rebalancingDone = balanceTrucks(trucks[0], trucks[1], 5);
+            rebalancingDone = false;
+            if(trucks.length > 0) {
+                for(int i = 0; i < trucks.length - 1; i++) {
+                    if(balanceTrucks(trucks[i], trucks[i + 1], 5)) {
+                        rebalancingDone = true;
+                    }
+                }
+            }
             optimizationDone = false;
             for(Truck truck : trucks) {
                 if(optimizeTruck(truck, items, 5)) {
