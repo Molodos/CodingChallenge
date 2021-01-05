@@ -2,7 +2,7 @@ package com.molodos.bwichallenge.models;
 
 import java.util.List;
 
-public class Truck implements Comparable<Truck> {
+public class Truck {
 
     private final String name;
     private final double capacityG, driverG;
@@ -33,11 +33,6 @@ public class Truck implements Comparable<Truck> {
 
     public List<ItemTuple> getAllTuples(int size) {
         return items.getAllTuples(size);
-    }
-
-    @Override
-    public int compareTo(Truck o) {
-        return Double.compare(capacityG - driverG, o.capacityG - o.driverG);
     }
 
     @Override

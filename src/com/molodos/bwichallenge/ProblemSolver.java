@@ -11,22 +11,38 @@ import java.util.List;
 public class ProblemSolver {
 
     public static void main(String[] args) {
-        calculate(true);
+        calculate();
     }
 
-    private static void calculate(boolean details) {
+    private static void calculate() {
+        System.out.print("Filling trucks...");
         ItemList items = DataProvider.getSortedItems();
         Truck[] trucks = DataProvider.getTrucks();
-        double totalValue = 0;
         for(Truck truck : trucks) {
             fillTruck(truck, items);
-            optimizeTruck(truck, items, 5);
         }
+        System.out.println("done");
+        System.out.print("Optimizing load...");
+        boolean rebalancingDone = true;
+        boolean optimizationDone = true;
+        while(rebalancingDone || optimizationDone) {
+            rebalancingDone = balanceTrucks(trucks[0], trucks[1], 5);
+            optimizationDone = false;
+            for(Truck truck : trucks) {
+                if(optimizeTruck(truck, items, 5)) {
+                    optimizationDone = true;
+                }
+            }
+        }
+        System.out.println("done");
+        printStats(trucks);
+    }
+
+    private static void printStats(Truck[] trucks) {
+        double totalValue = 0;
         for(Truck truck : trucks) {
             totalValue += truck.getTotalValue();
-            if(details) {
-                System.out.println(truck.toString() + "\n");
-            }
+            System.out.println(truck.toString() + "\n");
         }
         System.out.println("Total value (all trucks): " + totalValue);
     }
@@ -41,7 +57,46 @@ public class ProblemSolver {
         }
     }
 
-    private static void optimizeTruck(Truck truck, ItemList items, int maxTupleReplace) {
+    private static boolean balanceTrucks(Truck truckA, Truck truckB, int maxTupleExchange) {
+        boolean back = false;
+        checkLoop: while(true) {
+            double maxRemaining = Math.max(truckA.getRemainingG(), truckB.getRemainingG());
+            List<ItemTuple> truckTuples = new ArrayList<>();
+            List<ItemTuple> replaceTuples = new ArrayList<>();
+            for(int i = 1; i <= maxTupleExchange; i++) {
+                truckTuples.addAll(truckA.getAllTuples(i));
+                replaceTuples.addAll(truckB.getAllTuples(i));
+            }
+            for(ItemTuple tuple : truckTuples) {
+                for(ItemTuple replace : replaceTuples) {
+                    double truckAChange = replace.getTotalWeight() - tuple.getTotalWeight();
+                    double aLeftNew = truckA.getRemainingG() - truckAChange;
+                    double bLeftNew = truckB.getRemainingG() + truckAChange;
+                    if(Math.min(aLeftNew, bLeftNew) >= 0 && Math.max(aLeftNew, bLeftNew) > maxRemaining) {
+                        for(Item item : tuple.getAllItems()) {
+                            truckA.removeItem(item);
+                        }
+                        for(Item item : replace.getAllItems()) {
+                            truckB.removeItem(item);
+                        }
+                        for(Item item : tuple.getAllItems()) {
+                            truckB.addItem(item);
+                        }
+                        for(Item item : replace.getAllItems()) {
+                            truckA.addItem(item);
+                        }
+                        back = true;
+                        continue checkLoop;
+                    }
+                }
+            }
+            break;
+        }
+        return back;
+    }
+
+    private static boolean optimizeTruck(Truck truck, ItemList items, int maxTupleReplace) {
+        boolean back = false;
         checkLoop: while(true) {
             List<ItemTuple> truckTuples = new ArrayList<>();
             List<ItemTuple> replaceTuples = new ArrayList<>();
@@ -60,11 +115,13 @@ public class ProblemSolver {
                             items.removeItem(item);
                             truck.addItem(item);
                         }
+                        back = true;
                         continue checkLoop;
                     }
                 }
             }
             break;
         }
+        return back;
     }
 }
