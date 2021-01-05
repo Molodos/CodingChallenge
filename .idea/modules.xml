@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/BWICodingChallenge.iml" filepath="$PROJECT_DIR$/BWICodingChallenge.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CodingChallenge.iml" filepath="$PROJECT_DIR$/CodingChallenge.iml" />
     </modules>
   </component>
 </project>
