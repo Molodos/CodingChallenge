@@ -32,11 +32,11 @@ Die Aufgabenstellung könnte als lineares Gleichungssystem mit Constraints und e
 
 > Für die gegebene Aufgabenstellung findet der Algorithmus eine optimale Lösung
 
-> Für andere Eingabewerte können die Dateien `items.csv` und `trucks.csv` editiert werden
+> Für andere Eingabewerte können die Dateien `items.csv` und `trucks.csv` editiert werden. Für Gewichte und Nutzwerte werden Kommazahlen unterstützt
 
 ## 4. Ausführung des Lösungsprogramms
 ### 4.1 Voraussetzungen
-* Java JDK 8 muss installiert sein
+Java JDK 8 muss installiert sein
 
 ### 4.1 Ausführung
 #### 4.1.1 Linux

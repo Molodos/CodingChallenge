@@ -1,46 +1,46 @@
 package com.molodos.codingchallenge.models;
 
-import java.util.List;
+/**
+ * This class models a truck to be filled with items.
+ *
+ * @author Michael Weichenrieder
+ */
+public class Truck extends ItemList {
 
-public class Truck {
-
+    // Name of the truck
     private final String name;
-    private final double capacityG, driverG;
-    private final ItemList items;
 
-    public Truck(String name, double capacityG, double driverG) {
+    // Capacity and driver weight in grams
+    private final double capacity, driverWeight;
+
+    /**
+     * Constructor to create a Truck object by its specification.
+     *
+     * @param name         Name of the truck
+     * @param capacity     Capacity of the truck in grams
+     * @param driverWeight Weight of the trucks driver in grams
+     */
+    public Truck(String name, double capacity, double driverWeight) {
+        // Call the ItemLists constructor with a maximum capacity of the truck excluding the drivers weight
+        super(capacity - driverWeight);
+
+        // Save the parameters
         this.name = name;
-        this.capacityG = capacityG;
-        this.driverG = driverG;
-        items = new ItemList(capacityG - driverG);
+        this.capacity = capacity;
+        this.driverWeight = driverWeight;
     }
 
-    public boolean addItem(Item item) {
-        return items.addItem(item);
-    }
-
-    public boolean removeItem(Item item) {
-        return items.removeItem(item);
-    }
-
-    public double getRemainingG() {
-        return items.getRemainingWeight();
-    }
-
-    public double getTotalValue() {
-        return items.getTotalValue();
-    }
-
-    public List<ItemTuple> getAllTuples(int size) {
-        return items.getAllTuples(size);
-    }
-
+    /**
+     * Returns a String representation of the truck.
+     *
+     * @return A String representation of the truck
+     */
     @Override
     public String toString() {
-        String representation = name + ":\n";
-        representation += items.toString() + "\n";
-        representation += "Weight left: " + items.getRemainingWeight() + "g\n";
-        representation += "Total value: " + items.getTotalValue();
-        return representation;
+        return String.format("%s:%n" +
+                "%s%n" +
+                "Gesamtkapazität: %.1fg%n" +
+                "Kapazität übrig: %.1fg%n" +
+                "Gesamt-Nutzwert: %.1f", name, super.toString(), capacity - driverWeight, getRemainingCapacity(), getTotalValue());
     }
 }

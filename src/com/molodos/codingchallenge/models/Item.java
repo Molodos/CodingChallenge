@@ -21,7 +21,7 @@ public class Item implements Comparable<Item> {
     private final double efficiency;
 
     /**
-     * Constructor to create an Item objects by its specification.
+     * Constructor to create an Item object by its specification.
      *
      * @param name   Name of the item
      * @param weight Weight of one unit of the item in grams
@@ -149,16 +149,6 @@ public class Item implements Comparable<Item> {
     }
 
     /**
-     * Returns a String representation of the item.
-     *
-     * @return A String representation of the item
-     */
-    @Override
-    public String toString() {
-        return String.format("%dx %s [weight=%fg, value=%f]", units, name, weight, value);
-    }
-
-    /**
      * If the supplied object is an Item object, checks whether or not the items are the same beside units.
      *
      * @param object Another object to compare Item object with
@@ -174,5 +164,15 @@ public class Item implements Comparable<Item> {
 
         // Fallback if no Item object is supplied
         return super.equals(object);
+    }
+
+    /**
+     * Returns a String representation of the item.
+     *
+     * @return A String representation of the item
+     */
+    @Override
+    public String toString() {
+        return String.format("%dx %s", units, name);
     }
 }

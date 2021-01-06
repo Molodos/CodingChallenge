@@ -24,24 +24,24 @@ public class ProblemSolver {
      */
     public static void main(String[] args) {
         // Use DataProvider to load items and trucks
-        System.out.print("Loading items and trucks...");
+        System.out.print("Hardware und Transporter werden eingelesen...");
         ItemList items = DataProvider.getSortedItems();
         Truck[] trucks = DataProvider.getTrucks();
-        System.out.println("done");
+        System.out.println("fertig");
 
         // Initially fill trucks with most efficient items
-        System.out.print("Filling trucks...");
+        System.out.print("Transporter werden befüllt...");
         fillTrucks(trucks, items);
-        System.out.println("done");
+        System.out.println("fertig");
 
         // Exchange items between trucks and unloaded items to optimize the total value of all loaded items
         // Only search for exchangeable item tuples with a maximum of five items in order to save time whilst having no significant result quality loss
-        System.out.print("Optimizing load...");
+        System.out.print("Beladung wird optimiert...");
         optimizeTrucksLoad(trucks, items, 5);
-        System.out.println("done");
+        System.out.println("fertig");
 
         // Print calculated optimal loading list for the trucks and some other stats
-        System.out.print("Printing statistics...\n");
+        System.out.print("Ergebnisse werden ausgegeben...\n");
         printStats(trucks, items);
     }
 
@@ -59,7 +59,7 @@ public class ProblemSolver {
             // Iterate through all items not already loaded
             for (Item item : items.getItems()) {
                 // Calculate max units of the item that fit into the truck and split them from the available items
-                int maxUnits = (int) (truck.getRemainingG() / item.getWeight());
+                int maxUnits = (int) (truck.getRemainingCapacity() / item.getWeight());
                 Item split = item.splitUnits(maxUnits);
 
                 // Try loading split items to truck and put items back to ItemList if loading fails (normally should not happen)
@@ -126,7 +126,7 @@ public class ProblemSolver {
         maximizeFreeSpaceLoop:
         while (true) {
             // Calculate the maximum space left in the emptier truck
-            double maxSpaceLeft = Math.max(truckA.getRemainingG(), truckB.getRemainingG());
+            double maxSpaceLeft = Math.max(truckA.getRemainingCapacity(), truckB.getRemainingCapacity());
 
             // Retrieve lists of all possible tuples not bigger than the maximum size for both trucks
             List<ItemTuple> truckATuples = new ArrayList<>();
@@ -141,8 +141,8 @@ public class ProblemSolver {
                 for (ItemTuple tupleB : truckBTuples) {
                     // Calculate the space that would be left in the trucks if tuples would be exchanged
                     double truckASpaceLeftChange = tupleA.getTotalWeight() - tupleB.getTotalWeight();
-                    double aSpaceLeftAfterwards = truckA.getRemainingG() + truckASpaceLeftChange;
-                    double bSpaceLeftAfterwards = truckB.getRemainingG() - truckASpaceLeftChange;
+                    double aSpaceLeftAfterwards = truckA.getRemainingCapacity() + truckASpaceLeftChange;
+                    double bSpaceLeftAfterwards = truckB.getRemainingCapacity() - truckASpaceLeftChange;
 
                     // If exchange of tuples is possible without exceeding truck weight limits and if one of the trucks will be emptier than the emptier truck in the beginning, exchange tuples
                     if (Math.min(aSpaceLeftAfterwards, bSpaceLeftAfterwards) >= 0 && Math.max(aSpaceLeftAfterwards, bSpaceLeftAfterwards) > maxSpaceLeft) {
@@ -206,7 +206,7 @@ public class ProblemSolver {
             for (ItemTuple tuple : truckTuples) {
                 for (ItemTuple replace : unloadedTuples) {
                     // If exchange of tuples leads to an increase of truck total value and the maximum weight of the truck will not be exceeded, exchange tuples
-                    if (replace.getTotalValue() > tuple.getTotalValue() && replace.getTotalWeight() <= tuple.getTotalWeight() + truck.getRemainingG()) {
+                    if (replace.getTotalValue() > tuple.getTotalValue() && replace.getTotalWeight() <= tuple.getTotalWeight() + truck.getRemainingCapacity()) {
                         // Remove exchange all items contained in the truck tuple to the unused items
                         for (Item item : tuple.getAllItems()) {
                             truck.removeItem(item);
@@ -243,7 +243,7 @@ public class ProblemSolver {
      */
     private static void printStats(Truck[] trucks, ItemList items) {
         // Print unloaded items
-        System.out.println("\nUnloaded items:\n" + items.toString() + "\n");
+        System.out.println("\nNicht verladene Hardware:\n" + items.toString() + "\n");
 
         // Print details of all trucks and calculate their total value
         double totalValue = 0;
@@ -253,6 +253,6 @@ public class ProblemSolver {
         }
 
         // Print total value of all loaded items
-        System.out.println("Total value (all trucks): " + totalValue);
+        System.out.println("Summe der Nutzwerte aller Transporter: " + totalValue);
     }
 }
