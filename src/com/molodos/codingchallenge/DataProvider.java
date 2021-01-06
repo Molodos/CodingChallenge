@@ -24,8 +24,26 @@ public class DataProvider {
         List<Truck> trucks = new ArrayList<>();
 
         // Add all trucks to the list
-        trucks.add(new Truck("Transporter 1", 1100000, 72400));
-        trucks.add(new Truck("Transporter 2", 1100000, 85700));
+        List<String[]> csvLines = FileManager.readCsvFile("trucks.csv");
+        int name = -1, capacity = -1, driverWeight = -1;
+        for(String[] line : csvLines) {
+            if(name == -1) {
+                for(int i = 0; i < line.length; i++) {
+                    switch (line[i]) {
+                        case "name":
+                            name = i;
+                            break;
+                        case "capacity":
+                            capacity = i;
+                            break;
+                        case "driver weight":
+                            driverWeight = i;
+                    }
+                }
+            } else {
+                trucks.add(new Truck(line[name], Double.parseDouble(line[capacity]), Double.parseDouble(line[driverWeight])));
+            }
+        }
 
         // Parse list to an array and return it
         return trucks.toArray(new Truck[0]);
@@ -42,16 +60,29 @@ public class DataProvider {
         ItemList itemList = new ItemList();
 
         // Add all possible items to the ItemList
-        itemList.addItem(new Item("Notebook Büro 13\"", 2451, 40, 205));
-        itemList.addItem(new Item("Notebook Büro 14\"", 2978, 35, 420));
-        itemList.addItem(new Item("Notebook outdoor", 3625, 80, 450));
-        itemList.addItem(new Item("Mobiltelefon Büro", 717, 30, 60));
-        itemList.addItem(new Item("Mobiltelefon Outdoor", 988, 60, 157));
-        itemList.addItem(new Item("Mobiltelefon Heavy Duty", 1220, 65, 220));
-        itemList.addItem(new Item("Tablet Büro klein", 1405, 40, 620));
-        itemList.addItem(new Item("Tablet Büro groß", 1455, 40, 250));
-        itemList.addItem(new Item("Tablet outdoor klein", 1690, 45, 540));
-        itemList.addItem(new Item("Tablet outdoor groß", 1980, 68, 370));
+        List<String[]> csvLines = FileManager.readCsvFile("items.csv");
+        int name = -1, units = -1, weight = -1, value = -1;
+        for(String[] line : csvLines) {
+            if(name == -1) {
+                for(int i = 0; i < line.length; i++) {
+                    switch (line[i]) {
+                        case "name":
+                            name = i;
+                            break;
+                        case "units":
+                            units = i;
+                            break;
+                        case "weight":
+                            weight = i;
+                            break;
+                        case "value":
+                            value = i;
+                    }
+                }
+            } else {
+                itemList.addItem(new Item(line[name], Double.parseDouble(line[weight]), Double.parseDouble(line[value]), Integer.parseInt(line[units])));
+            }
+        }
 
         // Return the ItemList
         return itemList;

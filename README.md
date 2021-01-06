@@ -36,7 +36,7 @@ Die Aufgabenstellung könnte als lineares Gleichungssystem mit Constraints und e
 ### 3.2 Vorteile des eigenen Algorithmus
 1. Die Laufzeit beläuft sich nur auf wenige Sekundenbruchteile bis Sekunden
 2. Es werden für Gewichte und Nutzwerte auch Kommazahlen akzeptiert, was mit vielen anderen Lösungsalgorithmen nur sehr schwer umsetzbar wäre
-3. Die Eingabewerte sind frei anpassbar und erweiterbar. So können zum beispiel zur Eingabedatei `trucks.csv` einfach weitere Transporter hinzugefügt werden, falls eine Ladeliste für mehr als zwei Transporter benötigt wird 
+3. Die Eingabewerte sind frei anpassbar und erweiterbar. So können zum Beispiel zur Eingabedatei `trucks.csv` einfach weitere Transporter hinzugefügt werden, falls eine Ladeliste für mehr als zwei Transporter benötigt wird
 4. Es werden keinerlei Bibliotheken als Abhängigkeiten benötigt, das heißt, um das Programm auszuführen, muss lediglich Java installiert sein
 
 ## 4. Ausführung des Lösungsprogramms
