@@ -20,6 +20,7 @@ Die Aufgabenstellung könnte als lineares Gleichungssystem mit Constraints und e
 2. Da man bei diesem Lösungsansatz lediglich die Aufgabenstellung umformulieren würde und die eigentliche Lösung des Problems dem bereits vorhandenen Solver überlässt, denke ich, dass dies nicht das Ziel des Wettbewerbs ist.
 
 ## 3. Eigener Algorithmus zur Lösung
+### 3.1 Funktionsweise
 1. Gegenstände aus der Datei `items.csv` und Transporter aus der Datei `trucks.csv` einlesen
 2. Gegenstände nach Effizienz sortieren  
 3. Alle Transporter mit den effizientesten Gegenständen befüllen  
@@ -28,11 +29,15 @@ Die Aufgabenstellung könnte als lineares Gleichungssystem mit Constraints und e
 6. Falls in *4.* oder *5.* eine Änderung durchgeführt wurde, wieder zu *4.* springen und dort fortsetzen  
 7. Die Finale Beladung der Transporter ausgeben und in der Datei `solution.csv` speichern
 
-> Es werden bei Gegenstands-Gruppen immer nur alle möglichen Gruppen der Menge 1 bis 5 betrachtet, um die Laufzeit ohne signifikante Qualitätsverluste erheblich zu optimieren.
+> Es werden bei Gegenstands-Gruppen immer nur alle möglichen Gruppen der Menge 1 bis 5 betrachtet, um die Laufzeit ohne signifikante Qualitätsverluste erheblich zu reduzieren.
 
 > Für die gegebene Aufgabenstellung findet der Algorithmus eine optimale Lösung
 
-> Für andere Eingabewerte können die Dateien `items.csv` und `trucks.csv` editiert werden. Für Gewichte und Nutzwerte werden Kommazahlen unterstützt
+### 3.2 Vorteile des eigenen Algorithmus
+1. Die Laufzeit beläuft sich nur auf wenige Sekundenbruchteile bis Sekunden
+2. Es werden für Gewichte und Nutzwerte auch Kommazahlen akzeptiert, was mit vielen anderen Lösungsalgorithmen nur sehr schwer umsetzbar wäre
+3. Die Eingabewerte sind frei anpassbar und erweiterbar. So können zum beispiel zur Eingabedatei `trucks.csv` einfach weitere Transporter hinzugefügt werden, falls eine Ladeliste für mehr als zwei Transporter benötigt wird 
+4. Es werden keinerlei Bibliotheken als Abhängigkeiten benötigt, das heißt, um das Programm auszuführen, muss lediglich Java installiert sein
 
 ## 4. Ausführung des Lösungsprogramms
 ### 4.1 Voraussetzungen
