@@ -152,7 +152,7 @@ public class Item implements Comparable<Item> {
      * If the supplied object is an Item object, checks whether or not the items are the same beside units.
      *
      * @param object Another object to compare Item object with
-     * @return True if objects are equal, else false
+     * @return true if objects are equal, else false
      */
     @Override
     public boolean equals(Object object) {

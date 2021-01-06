@@ -116,7 +116,7 @@ public class ProblemSolver {
      * @param truckA       First truck to use for exchanging items
      * @param truckB       Second truck to use for exchanging items
      * @param maxTupleSize Maximum item count of tuples to exchange at once (lower values lead to faster calculation)
-     * @return Returns true if truck load was changed, else returns false
+     * @return true if truck load was changed, else false
      */
     private static boolean maximizeFreeSpace(Truck truckA, Truck truckB, int maxTupleSize) {
         // Local variable to store whether or not modifications were made to truck load
@@ -185,7 +185,7 @@ public class ProblemSolver {
      * @param truck        Truck whose value should be maximized
      * @param items        Unloaded items to use for exchanging items
      * @param maxTupleSize Maximum item count of tuples to exchange at once (lower values lead to faster calculation)
-     * @return Returns true if truck load was changed, else returns false
+     * @return true if truck load was changed, else false
      */
     private static boolean maximizeValue(Truck truck, ItemList items, int maxTupleSize) {
         // Local variable to store whether or not modifications were made to truck load
