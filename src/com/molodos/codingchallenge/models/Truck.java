@@ -1,5 +1,7 @@
 package com.molodos.codingchallenge.models;
 
+import java.text.DecimalFormat;
+
 /**
  * This class models a truck to be filled with items.
  *
@@ -55,10 +57,11 @@ public class Truck extends ItemList {
      */
     @Override
     public String toString() {
+        DecimalFormat decimalFormat = new DecimalFormat("0.#####");
         return String.format("%s:%n" +
                 "%s%n" +
-                "Gewicht inklusive Fahrer: %.1fg%n" +
-                "Freie Kapazität:          %.1fg%n" +
-                "Nutzwert:                 %.1f", name, super.toString(), capacity - driverWeight, getRemainingCapacity(), getTotalValue());
+                "Gewicht inklusive Fahrer: %sg%n" +
+                "Freie Kapazität:          %sg%n" +
+                "Nutzwert:                 %s", name, super.toString(), decimalFormat.format(capacity - driverWeight), decimalFormat.format(getRemainingCapacity()), decimalFormat.format(getTotalValue()));
     }
 }

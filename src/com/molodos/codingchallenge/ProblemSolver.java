@@ -5,6 +5,7 @@ import com.molodos.codingchallenge.models.ItemList;
 import com.molodos.codingchallenge.models.ItemTuple;
 import com.molodos.codingchallenge.models.Truck;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -258,6 +259,7 @@ public class ProblemSolver {
         }
 
         // Print total value of all loaded items
-        System.out.println("Summe aller Nutzwerte: " + String.format("%.1f", totalValue));
+        DecimalFormat decimalFormat = new DecimalFormat("0.#####");
+        System.out.println("Summe aller Nutzwerte: " + decimalFormat.format(totalValue));
     }
 }

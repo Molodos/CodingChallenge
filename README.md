@@ -22,12 +22,12 @@ Die Aufgabenstellung könnte als lineares Gleichungssystem mit Constraints und e
 ## 3. Eigener Algorithmus zur Lösung
 ### 3.1 Funktionsweise
 1. Gegenstände aus der Datei `items.csv` und Transporter aus der Datei `trucks.csv` einlesen
-2. Gegenstände nach Effizienz sortieren  
-3. Alle Transporter mit den effizientesten Gegenständen befüllen  
+2. Gegenstände nach Effizienz (Nutzwert/Gewicht) sortieren
+3. Alle Transporter mit den effizientesten Gegenständen befüllen. Wenn keine mehr übrig sind oder nicht mehr genug Platz ist, mit zweit-effizientesten Gegenständen weitermachen und so weiter
 4. Gegenstands-Gruppen zwischen je zwei Transportern versuchen so zu tauschen, dass das übrige Gewicht in einem Transporter maximal wird
-5. Für jeden Transporter versuchen, Gegenstands-Gruppen mit Gegenstands-Gruppen aus dem übrigen nicht verladenen Vorrat so zu tauschen, dass der Gesamtwert der Gegenstände im Transporter steigt  
-6. Falls in *4.* oder *5.* eine Änderung durchgeführt wurde, wieder zu *4.* springen und dort fortsetzen  
-7. Die Finale Beladung der Transporter ausgeben und in der Datei `solution.csv` speichern
+5. Für jeden Transporter versuchen, Gegenstands-Gruppen mit Gegenstands-Gruppen aus dem übrigen nicht verladenen Vorrat so zu tauschen, dass der Gesamt-Nutzwert der Gegenstände im Transporter steigt
+6. Falls in *4.* oder *5.* eine Änderung durchgeführt wurde, wieder zu *4.* springen und dort fortsetzen
+7. Die Finale Beladung der Transporter in der Datei `solution.csv` speichern und anschließend ausgeben
 
 > Es werden bei Gegenstands-Gruppen immer nur alle möglichen Gruppen der Menge 1 bis 5 betrachtet, um die Laufzeit ohne signifikante Qualitätsverluste erheblich zu reduzieren.
 
@@ -74,9 +74,9 @@ Java JDK 8 muss installiert sein
 ### 5.2 Gesamtwerte
 |                              | Transporter 1 | Transporter 2 | Gesamt      | 
 |------------------------------|---------------|---------------|-------------| 
-| **Gewicht inklusive Fahrer** | 1099971,0g    | 1100000,0g    | 2199971,0g  | 
-| **Freie Kapazität**          | 29,0g         | 0,0g          | 29,0g       | 
-| **Nutzwert**                 | 44442,0       | 30218,0       | **74660,0** | 
+| **Gewicht inklusive Fahrer** | 1099971g      | 1100000g      | 2199971g    | 
+| **Freie Kapazität**          | 29g           | 0g            | 29g         | 
+| **Nutzwert**                 | 44442         | 30218         | **74660**   | 
 
 Summe aller Nutzwerte: **`74660,0`**
 

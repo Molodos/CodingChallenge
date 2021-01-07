@@ -1,11 +1,11 @@
 Name,Einheiten,Gewicht,Nutzwert
-"Notebook Büro 13""",205,2451,40
-"Notebook Büro 14""",420,2978,35
-Notebook outdoor,450,3625,80
-Mobiltelefon Büro,60,717,30
-Mobiltelefon Outdoor,157,988,60
-Mobiltelefon Heavy Duty,220,1220,65
-Tablet Büro klein,620,1405,40
-Tablet Büro groß,250,1455,40
-Tablet outdoor klein,540,1690,45
-Tablet outdoor groß,370,1980,68
+"Notebook Büro 13""",205,2451.0,40.0
+"Notebook Büro 14""",420,2978.0,35.0
+Notebook outdoor,450,3625.0,80.0
+Mobiltelefon Büro,60,717.0,30.0
+Mobiltelefon Outdoor,157,988.0,60.0
+Mobiltelefon Heavy Duty,220,1220.0,65.0
+Tablet Büro klein,620,1405.0,40.0
+Tablet Büro groß,250,1455.0,40.0
+Tablet outdoor klein,540,1690.0,45.0
+Tablet outdoor groß,370,1980.0,68.0

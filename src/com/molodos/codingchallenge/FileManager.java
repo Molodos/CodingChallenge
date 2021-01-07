@@ -5,6 +5,7 @@ import com.molodos.codingchallenge.models.ItemList;
 import com.molodos.codingchallenge.models.Truck;
 
 import java.io.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,6 +98,9 @@ public class FileManager {
      * @param fileName   The name of the csv file to save the solution to
      */
     public static void saveSolution(Truck[] trucks, ItemList spareItems, String fileName) {
+        // Format to cut trailing zeroes after comma
+        DecimalFormat decimalFormat = new DecimalFormat("0.#####");
+
         // Initialize a StringBuilder to save file outputs and add item name header
         StringBuilder output = new StringBuilder("Hardware");
 
@@ -164,9 +168,9 @@ public class FileManager {
         for (Truck truck : trucks) {
             output.append(",");
             totalWeight += truck.getCapacity() - truck.getRemainingCapacity();
-            output.append("\"").append(String.format("%.1fg", truck.getCapacity() - truck.getRemainingCapacity())).append("\"");
+            output.append("\"").append(decimalFormat.format(truck.getCapacity() - truck.getRemainingCapacity())).append("g\"");
         }
-        output.append(",\"").append(String.format("%.1fg", totalWeight)).append("\"\r\n");
+        output.append(",\"").append(decimalFormat.format(totalWeight)).append("g\"\r\n");
 
         // Add free capacities
         output.append("Freie Kapazität");
@@ -174,9 +178,9 @@ public class FileManager {
         for (Truck truck : trucks) {
             output.append(",");
             totalFree += truck.getRemainingCapacity();
-            output.append("\"").append(String.format("%.1fg", truck.getRemainingCapacity())).append("\"");
+            output.append("\"").append(decimalFormat.format(truck.getRemainingCapacity())).append("g\"");
         }
-        output.append(",\"").append(String.format("%.1fg", totalFree)).append("\"\r\n");
+        output.append(",\"").append(decimalFormat.format(totalFree)).append("g\"\r\n");
 
         // Add values
         output.append("Nutzwert");
@@ -184,9 +188,9 @@ public class FileManager {
         for (Truck truck : trucks) {
             output.append(",");
             totalValue += truck.getTotalValue();
-            output.append("\"").append(String.format("%.1f", truck.getTotalValue())).append("\"");
+            output.append("\"").append(decimalFormat.format(truck.getTotalValue())).append("\"");
         }
-        output.append(",\"").append(String.format("%.1f", totalValue)).append("\"\r\n");
+        output.append(",\"").append(decimalFormat.format(totalValue)).append("\"\r\n");
 
         // Append empty line
         output.append(",".repeat(trucks.length + 1)).append("\r\n");
