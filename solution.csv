@@ -11,9 +11,9 @@ Notebook outdoor,0,0,0
 "Notebook Büro 14""",0,0,0
 ,,,
 ,Transporter 1,Transporter 2,Gesamt
-Gewicht inklusive Fahrer,1099971.0g,1100000.0g,2199971.0g
-Freie Kapazität,29.0g,0.0g,29.0g
-Nutzwert,44442.0,30218.0,74660.0
+Gewicht inklusive Fahrer,"1099971,0g","1100000,0g","2199971,0g"
+Freie Kapazität,"29,0g","0,0g","29,0g"
+Nutzwert,"44442,0","30218,0","74660,0"
 ,,,
 Nicht verladene Hardware,Einheiten,,
 Mobiltelefon Outdoor,0,,

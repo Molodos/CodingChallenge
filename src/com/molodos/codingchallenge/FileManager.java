@@ -164,9 +164,9 @@ public class FileManager {
         for (Truck truck : trucks) {
             output.append(",");
             totalWeight += truck.getCapacity() - truck.getRemainingCapacity();
-            output.append(truck.getCapacity() - truck.getRemainingCapacity()).append("g");
+            output.append("\"").append(String.format("%.1fg", truck.getCapacity() - truck.getRemainingCapacity())).append("\"");
         }
-        output.append(",").append(totalWeight).append("g\r\n");
+        output.append(",\"").append(String.format("%.1fg", totalWeight)).append("\"\r\n");
 
         // Add free capacities
         output.append("Freie Kapazität");
@@ -174,9 +174,9 @@ public class FileManager {
         for (Truck truck : trucks) {
             output.append(",");
             totalFree += truck.getRemainingCapacity();
-            output.append(truck.getRemainingCapacity()).append("g");
+            output.append("\"").append(String.format("%.1fg", truck.getRemainingCapacity())).append("\"");
         }
-        output.append(",").append(totalFree).append("g\r\n");
+        output.append(",\"").append(String.format("%.1fg", totalFree)).append("\"\r\n");
 
         // Add values
         output.append("Nutzwert");
@@ -184,9 +184,9 @@ public class FileManager {
         for (Truck truck : trucks) {
             output.append(",");
             totalValue += truck.getTotalValue();
-            output.append(truck.getTotalValue());
+            output.append("\"").append(String.format("%.1f", truck.getTotalValue())).append("\"");
         }
-        output.append(",").append(totalValue).append("\r\n");
+        output.append(",\"").append(String.format("%.1f", totalValue)).append("\"\r\n");
 
         // Append empty line
         output.append(",".repeat(trucks.length + 1)).append("\r\n");
