@@ -84,21 +84,16 @@ public class ItemList {
      */
     public boolean removeItem(Item item) {
         // Iterate over all items
-        for (int i = 0; i < items.size(); i++) {
+        for (Item value : items) {
             // Check if item equals item to be removed
-            if (items.get(i).equals(item)) {
+            if (value.equals(item)) {
                 // Return false for failure if there are not enough units available to remove
-                if (items.get(i).getUnits() < item.getUnits()) {
+                if (value.getUnits() < item.getUnits()) {
                     return false;
                 }
 
                 // Remove item units
-                items.get(i).removeUnits(item.getUnits());
-
-                // No items are left, remove the item object from the list
-                if (items.get(i).getUnits() <= 0) {
-                    items.remove(i);
-                }
+                value.removeUnits(item.getUnits());
 
                 // Decrease total weight and value counters
                 totalWeight -= item.getTotalWeight();
@@ -144,6 +139,25 @@ public class ItemList {
      */
     public List<Item> getItems() {
         return items;
+    }
+
+    /**
+     * Returns the number of units of the specified type contained in the list.
+     *
+     * @param searchItem Item type searched
+     * @return Number of contained units
+     */
+    public int getUnits(Item searchItem) {
+        // Iterate through all items
+        for(Item item : items) {
+            // Return the unit count if item was found
+            if(item.equals(searchItem)) {
+                return item.getUnits();
+            }
+        }
+
+        // Return 0 if not found
+        return 0;
     }
 
     /**

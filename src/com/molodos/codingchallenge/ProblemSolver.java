@@ -40,6 +40,11 @@ public class ProblemSolver {
         optimizeTrucksLoad(trucks, items, 5);
         System.out.println("fertig");
 
+        // Save calculated optimal loading list for the trucks and some other stats
+        System.out.print("Ergebnisse werden gespeichert...\n");
+        FileManager.saveSolution(trucks, items, "solution.csv");
+        System.out.println("fertig");
+
         // Print calculated optimal loading list for the trucks and some other stats
         System.out.print("Ergebnisse werden ausgegeben...\n");
         printStats(trucks, items);

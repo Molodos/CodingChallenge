@@ -31,6 +31,24 @@ public class Truck extends ItemList {
     }
 
     /**
+     * Returns the total truck capacity.
+     *
+     * @return total truck capacity
+     */
+    public double getCapacity() {
+        return capacity;
+    }
+
+    /**
+     * Returns the name of the truck.
+     *
+     * @return Name of the truck
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
      * Returns a String representation of the truck.
      *
      * @return A String representation of the truck

@@ -1,5 +1,6 @@
 package com.molodos.codingchallenge;
 
+import com.molodos.codingchallenge.models.Item;
 import com.molodos.codingchallenge.models.ItemList;
 import com.molodos.codingchallenge.models.Truck;
 
@@ -98,6 +99,115 @@ public class FileManager {
      * @param fileName The name of the csv file to save the solution to
      */
     public static void saveSolution(Truck[] trucks, ItemList spareItems, String fileName) {
+        // Initialize a StringBuilder to save file outputs and add item name header
+        StringBuilder output = new StringBuilder("Hardware");
 
+        // Add headers for all truck columns
+        for(Truck truck : trucks) {
+            // Add prefix
+            output.append(",Einheiten ");
+
+            // Add truck name and escape characters if needed
+            if(truck.getName().contains("\"") || truck.getName().contains(",")) {
+                output.append("\"").append(truck.getName().replaceAll("\"", "\"\"")).append("\"");
+            } else {
+                output.append(truck.getName());
+            }
+        }
+
+        // Add header for total value and end line
+        output.append(",Einheiten Gesamt\r\n");
+
+        // Print item counts for each item and truck
+        for(Item item : spareItems.getItems()) {
+            // Add item name and escape characters if needed
+            if(item.getName().contains("\"") || item.getName().contains(",")) {
+                output.append("\"").append(item.getName().replaceAll("\"", "\"\"")).append("\"");
+            } else {
+                output.append(item.getName());
+            }
+
+            // Append units in all trucks and calculate total
+            int total = 0;
+            for(Truck truck : trucks) {
+                int units = truck.getUnits(item);
+                total += units;
+                output.append(",").append(units);
+            }
+
+            // Append total and end line
+            output.append(",").append(total).append("\r\n");
+        }
+
+        // Append empty line
+        output.append(",".repeat(trucks.length + 1)).append("\r\n");
+
+        // Add headers for truck totals
+        for(Truck truck : trucks) {
+            // Add comma separator
+            output.append(",");
+
+            // Add truck name and escape characters if needed
+            if(truck.getName().contains("\"") || truck.getName().contains(",")) {
+                output.append("\"");
+                output.append(truck.getName().replaceAll("\"", "\"\""));
+                output.append("\"");
+            } else {
+                output.append(truck.getName());
+            }
+        }
+
+        // Add header for total value and end line
+        output.append(",Gesamt\r\n");
+
+        // Add total weights with driver
+        output.append("Gewicht inklusive Fahrer");
+        double totalWeight = 0;
+        for(Truck truck : trucks) {
+            output.append(",");
+            totalWeight += truck.getCapacity() - truck.getRemainingCapacity();
+            output.append(truck.getCapacity() - truck.getRemainingCapacity()).append("g");
+        }
+        output.append(",").append(totalWeight).append("g\r\n");
+
+        // Add free capacities
+        output.append("Freie Kapazität");
+        double totalFree = 0;
+        for(Truck truck : trucks) {
+            output.append(",");
+            totalFree += truck.getRemainingCapacity();
+            output.append(truck.getRemainingCapacity()).append("g");
+        }
+        output.append(",").append(totalFree).append("g\r\n");
+
+        // Add values
+        output.append("Nutzwert");
+        double totalValue = 0;
+        for(Truck truck : trucks) {
+            output.append(",");
+            totalValue += truck.getTotalValue();
+            output.append(truck.getTotalValue());
+        }
+        output.append(",").append(totalValue).append("\r\n");
+
+        // Append empty line
+        output.append(",".repeat(trucks.length + 1)).append("\r\n");
+
+        // Add list of items left
+        String suffix = ",".repeat(trucks.length);
+        output.append("Nicht verladene Hardware,Einheiten").append(suffix).append("\r\n");
+        for(Item item : spareItems.getItems()) {
+            // Add item name and escape characters if needed
+            if(item.getName().contains("\"") || item.getName().contains(",")) {
+                output.append("\"").append(item.getName().replaceAll("\"", "\"\"")).append("\"");
+            } else {
+                output.append(item.getName());
+            }
+
+            // Add item units
+            output.append(",").append(item.getUnits()).append(suffix).append("\r\n");
+        }
+
+        System.out.println(output.toString());
     }
 }
