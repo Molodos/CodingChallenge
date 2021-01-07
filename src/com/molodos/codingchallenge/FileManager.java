@@ -193,7 +193,7 @@ public class FileManager {
 
         // Add list of items left
         String suffix = ",".repeat(trucks.length);
-        output.append("Nicht verladene Hardware,Einheiten").append(suffix).append("\r\n");
+        output.append("Nicht verladene Hardware,Übrige Einheiten").append(suffix).append("\r\n");
         for (Item item : spareItems.getItems()) {
             // Add item name and escape characters if needed
             if (item.getName().contains("\"") || item.getName().contains(",")) {

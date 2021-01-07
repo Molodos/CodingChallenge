@@ -55,3 +55,41 @@ Java JDK 8 muss installiert sein
 2. Das Skript entweder per Doppelklick oder aus der Konsole mit dem Befehle `./start.bat` ausführen
 3. Das Programm wird nun kompiliert um anschließend automatisch ausgeführt
 4. Die Lösung erscheint nach der Berechnung in der Konsole und in der sich öffnenden Benutzeroberfläche. Außerdem wird sie in der Datei `solution.csv` gespeichert
+
+## 5. Lösung
+### 5.1 Optimale Verteilung der Hardware
+| Hardware                | Einheiten Transporter 1 | Einheiten Transporter 2 | Einheiten Gesamt | 
+|-------------------------|-------------------------|-------------------------|------------------| 
+| Mobiltelefon Outdoor    | 152                     | 5                       | 157              | 
+| Mobiltelefon Heavy Duty | 214                     | 6                       | 220              | 
+| Mobiltelefon Büro       | 60                      | 0                       | 60               | 
+| Tablet outdoor groß     | 284                     | 86                      | 370              | 
+| Tablet Büro klein       | 3                       | 592                     | 595              | 
+| Tablet Büro groß        | 0                       | 0                       | 0                | 
+| Tablet outdoor klein    | 4                       | 0                       | 4                | 
+| Notebook outdoor        | 0                       | 0                       | 0                | 
+| Notebook Büro 13"       | 0                       | 0                       | 0                | 
+| Notebook Büro 14"       | 0                       | 0                       | 0                | 
+
+### 5.2 Gesamtwerte
+|                              | Transporter 1 | Transporter 2 | Gesamt      | 
+|------------------------------|---------------|---------------|-------------| 
+| **Gewicht inklusive Fahrer** | 1099971,0g    | 1100000,0g    | 2199971,0g  | 
+| **Freie Kapazität**          | 29,0g         | 0,0g          | 29,0g       | 
+| **Nutzwert**                 | 44442,0       | 30218,0       | **74660,0** | 
+
+Summe aller Nutzwerte: **`74660,0g`**
+
+### 5.3 Nicht verladene Hardware
+| Nicht verladene Hardware | Übrige Einheiten | 
+|--------------------------|------------------| 
+| Mobiltelefon Outdoor     | 0                | 
+| Mobiltelefon Heavy Duty  | 0                | 
+| Mobiltelefon Büro        | 0                | 
+| Tablet outdoor groß      | 0                | 
+| Tablet Büro klein        | 25               | 
+| Tablet Büro groß         | 250              | 
+| Tablet outdoor klein     | 536              | 
+| Notebook outdoor         | 450              | 
+| Notebook Büro 13"        | 205              | 
+| Notebook Büro 14"        | 420              | 
