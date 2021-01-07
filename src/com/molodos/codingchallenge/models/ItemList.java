@@ -149,9 +149,9 @@ public class ItemList {
      */
     public int getUnits(Item searchItem) {
         // Iterate through all items
-        for(Item item : items) {
+        for (Item item : items) {
             // Return the unit count if item was found
-            if(item.equals(searchItem)) {
+            if (item.equals(searchItem)) {
                 return item.getUnits();
             }
         }
@@ -234,8 +234,8 @@ public class ItemList {
     public String toString() {
         // Get the maximum unit char count for formatting reasons
         int maxUnits = 0;
-        for(Item item : items) {
-            if(item.getUnits() > maxUnits) {
+        for (Item item : items) {
+            if (item.getUnits() > maxUnits) {
                 maxUnits = item.getUnits();
             }
         }

@@ -41,12 +41,12 @@ public class ProblemSolver {
         System.out.println("fertig");
 
         // Save calculated optimal loading list for the trucks and some other stats
-        System.out.print("Ergebnisse werden gespeichert...\n");
+        System.out.print("Ergebnisse werden gespeichert...");
         FileManager.saveSolution(trucks, items, "solution.csv");
         System.out.println("fertig");
 
         // Print calculated optimal loading list for the trucks and some other stats
-        System.out.print("Ergebnisse werden ausgegeben...\n");
+        System.out.println("Ergebnisse werden ausgegeben...");
         printStats(trucks, items);
     }
 

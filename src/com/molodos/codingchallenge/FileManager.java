@@ -4,9 +4,7 @@ import com.molodos.codingchallenge.models.Item;
 import com.molodos.codingchallenge.models.ItemList;
 import com.molodos.codingchallenge.models.Truck;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -208,6 +206,24 @@ public class FileManager {
             output.append(",").append(item.getUnits()).append(suffix).append("\r\n");
         }
 
-        System.out.println(output.toString());
+        // Write to file
+        BufferedWriter writer = null;
+        try {
+            // Open file and write
+            writer = new BufferedWriter(new FileWriter(fileName));
+            writer.write(output.toString());
+        } catch (Exception e) {
+            // Print exception
+            e.printStackTrace();
+        } finally {
+            // Close writer if still open
+            if(writer != null) {
+                try {
+                    writer.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }
