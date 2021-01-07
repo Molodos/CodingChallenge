@@ -92,21 +92,21 @@ public class FileManager {
     /**
      * Saves the solution of the program execution to a csv file.
      *
-     * @param trucks The trucks that were loaded
+     * @param trucks     The trucks that were loaded
      * @param spareItems A list of not loaded items
-     * @param fileName The name of the csv file to save the solution to
+     * @param fileName   The name of the csv file to save the solution to
      */
     public static void saveSolution(Truck[] trucks, ItemList spareItems, String fileName) {
         // Initialize a StringBuilder to save file outputs and add item name header
         StringBuilder output = new StringBuilder("Hardware");
 
         // Add headers for all truck columns
-        for(Truck truck : trucks) {
+        for (Truck truck : trucks) {
             // Add prefix
             output.append(",Einheiten ");
 
             // Add truck name and escape characters if needed
-            if(truck.getName().contains("\"") || truck.getName().contains(",")) {
+            if (truck.getName().contains("\"") || truck.getName().contains(",")) {
                 output.append("\"").append(truck.getName().replaceAll("\"", "\"\"")).append("\"");
             } else {
                 output.append(truck.getName());
@@ -117,9 +117,9 @@ public class FileManager {
         output.append(",Einheiten Gesamt\r\n");
 
         // Print item counts for each item and truck
-        for(Item item : spareItems.getItems()) {
+        for (Item item : spareItems.getItems()) {
             // Add item name and escape characters if needed
-            if(item.getName().contains("\"") || item.getName().contains(",")) {
+            if (item.getName().contains("\"") || item.getName().contains(",")) {
                 output.append("\"").append(item.getName().replaceAll("\"", "\"\"")).append("\"");
             } else {
                 output.append(item.getName());
@@ -127,7 +127,7 @@ public class FileManager {
 
             // Append units in all trucks and calculate total
             int total = 0;
-            for(Truck truck : trucks) {
+            for (Truck truck : trucks) {
                 int units = truck.getUnits(item);
                 total += units;
                 output.append(",").append(units);
@@ -141,12 +141,12 @@ public class FileManager {
         output.append(",".repeat(trucks.length + 1)).append("\r\n");
 
         // Add headers for truck totals
-        for(Truck truck : trucks) {
+        for (Truck truck : trucks) {
             // Add comma separator
             output.append(",");
 
             // Add truck name and escape characters if needed
-            if(truck.getName().contains("\"") || truck.getName().contains(",")) {
+            if (truck.getName().contains("\"") || truck.getName().contains(",")) {
                 output.append("\"");
                 output.append(truck.getName().replaceAll("\"", "\"\""));
                 output.append("\"");
@@ -161,7 +161,7 @@ public class FileManager {
         // Add total weights with driver
         output.append("Gewicht inklusive Fahrer");
         double totalWeight = 0;
-        for(Truck truck : trucks) {
+        for (Truck truck : trucks) {
             output.append(",");
             totalWeight += truck.getCapacity() - truck.getRemainingCapacity();
             output.append(truck.getCapacity() - truck.getRemainingCapacity()).append("g");
@@ -171,7 +171,7 @@ public class FileManager {
         // Add free capacities
         output.append("Freie Kapazität");
         double totalFree = 0;
-        for(Truck truck : trucks) {
+        for (Truck truck : trucks) {
             output.append(",");
             totalFree += truck.getRemainingCapacity();
             output.append(truck.getRemainingCapacity()).append("g");
@@ -181,7 +181,7 @@ public class FileManager {
         // Add values
         output.append("Nutzwert");
         double totalValue = 0;
-        for(Truck truck : trucks) {
+        for (Truck truck : trucks) {
             output.append(",");
             totalValue += truck.getTotalValue();
             output.append(truck.getTotalValue());
@@ -194,9 +194,9 @@ public class FileManager {
         // Add list of items left
         String suffix = ",".repeat(trucks.length);
         output.append("Nicht verladene Hardware,Einheiten").append(suffix).append("\r\n");
-        for(Item item : spareItems.getItems()) {
+        for (Item item : spareItems.getItems()) {
             // Add item name and escape characters if needed
-            if(item.getName().contains("\"") || item.getName().contains(",")) {
+            if (item.getName().contains("\"") || item.getName().contains(",")) {
                 output.append("\"").append(item.getName().replaceAll("\"", "\"\"")).append("\"");
             } else {
                 output.append(item.getName());
@@ -217,7 +217,7 @@ public class FileManager {
             e.printStackTrace();
         } finally {
             // Close writer if still open
-            if(writer != null) {
+            if (writer != null) {
                 try {
                     writer.close();
                 } catch (Exception e) {

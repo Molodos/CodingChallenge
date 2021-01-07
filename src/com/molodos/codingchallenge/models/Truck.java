@@ -57,8 +57,8 @@ public class Truck extends ItemList {
     public String toString() {
         return String.format("%s:%n" +
                 "%s%n" +
-                "Gesamtkapazität: %.1fg%n" +
-                "Kapazität übrig: %.1fg%n" +
-                "Gesamt-Nutzwert: %.1f", name, super.toString(), capacity - driverWeight, getRemainingCapacity(), getTotalValue());
+                "Gewicht inklusive Fahrer: %.1fg%n" +
+                "Freie Kapazität:          %.1fg%n" +
+                "Nutzwert:                 %.1f", name, super.toString(), capacity - driverWeight, getRemainingCapacity(), getTotalValue());
     }
 }
