@@ -1,5 +1,8 @@
 package com.molodos.codingchallenge;
 
+import com.molodos.codingchallenge.models.ItemList;
+import com.molodos.codingchallenge.models.Truck;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -85,5 +88,16 @@ public class FileManager {
 
         // Return parsed line as an array
         return columns.toArray(new String[0]);
+    }
+
+    /**
+     * Saves the solution of the program execution to a csv file.
+     *
+     * @param trucks The trucks that were loaded
+     * @param spareItems A list of not loaded items
+     * @param fileName The name of the csv file to save the solution to
+     */
+    public static void saveSolution(Truck[] trucks, ItemList spareItems, String fileName) {
+
     }
 }

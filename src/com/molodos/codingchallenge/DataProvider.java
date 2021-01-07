@@ -35,13 +35,13 @@ public class DataProvider {
                 // Read first line to get column numbers
                 for (int i = 0; i < line.length; i++) {
                     switch (line[i]) {
-                        case "name":
+                        case "Name":
                             name = i;
                             break;
-                        case "capacity":
+                        case "Kapazität":
                             capacity = i;
                             break;
-                        case "driver weight":
+                        case "Gewicht Fahrer":
                             driverWeight = i;
                     }
                 }
@@ -77,16 +77,16 @@ public class DataProvider {
                 // Read first line to get column numbers
                 for (int i = 0; i < line.length; i++) {
                     switch (line[i]) {
-                        case "name":
+                        case "Name":
                             name = i;
                             break;
-                        case "units":
+                        case "Einheiten":
                             units = i;
                             break;
-                        case "weight":
+                        case "Gewicht":
                             weight = i;
                             break;
-                        case "value":
+                        case "Nutzwert":
                             value = i;
                     }
                 }
