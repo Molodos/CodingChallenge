@@ -142,7 +142,10 @@ public class FileManager {
         }
 
         // Append empty line
-        output.append(",".repeat(trucks.length + 1)).append("\r\n");
+        for (int i = 0; i < trucks.length + 1; i++) {
+            output.append(",");
+        }
+        output.append("\r\n");
 
         // Add headers for truck totals
         for (Truck truck : trucks) {
@@ -193,11 +196,17 @@ public class FileManager {
         output.append(",\"").append(decimalFormat.format(totalValue)).append("\"\r\n");
 
         // Append empty line
-        output.append(",".repeat(trucks.length + 1)).append("\r\n");
+        for (int i = 0; i < trucks.length + 1; i++) {
+            output.append(",");
+        }
+        output.append("\r\n");
 
         // Add list of items left
-        String suffix = ",".repeat(trucks.length);
-        output.append("Nicht verladene Hardware,Übrige Einheiten").append(suffix).append("\r\n");
+        StringBuilder suffix = new StringBuilder();
+        for (int i = 0; i < trucks.length; i++) {
+            suffix.append(",");
+        }
+        output.append("Nicht verladene Hardware,Übrige Einheiten").append(suffix.toString()).append("\r\n");
         for (Item item : spareItems.getItems()) {
             // Add item name and escape characters if needed
             if (item.getName().contains("\"") || item.getName().contains(",")) {
@@ -207,7 +216,7 @@ public class FileManager {
             }
 
             // Add item units
-            output.append(",").append(item.getUnits()).append(suffix).append("\r\n");
+            output.append(",").append(item.getUnits()).append(suffix.toString()).append("\r\n");
         }
 
         // Write to file

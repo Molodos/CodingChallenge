@@ -254,7 +254,11 @@ public class ItemList {
 
                 // Format the line
                 representation.append("- ");
-                representation.append(item.toString().replace("x", "x" + " ".repeat(Math.max(0, maxChars - String.valueOf(item.getUnits()).length()))));
+                StringBuilder spacer = new StringBuilder();
+                for (int i = 0; i < maxChars - String.valueOf(item.getUnits()).length(); i++) {
+                    spacer.append(" ");
+                }
+                representation.append(item.toString().replace("x", "x" + spacer.toString()));
             }
         }
 
