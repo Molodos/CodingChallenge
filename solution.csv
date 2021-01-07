@@ -1,6 +1,10 @@
 Hardware,Einheiten Transporter 1,Einheiten Transporter 2,Einheiten Gesamt
 "Notebook Büro""",0,0,0
-,,,
+
 ,Transporter 1, Transporter 2, Gesamt
-Gewicht,0g,0g,0g
+Gewicht inklusiv Fahrer,0g,0g,0g
+Freie Kapazität,0g,0g,0g
 Nutzwert,0,0,0
+
+Nicht verladene Hardware,Einheiten
+"Notebook Büro""",205
