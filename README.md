@@ -78,7 +78,7 @@ Java JDK 8 muss installiert sein
 | **Freie Kapazität**          | 29,0g         | 0,0g          | 29,0g       | 
 | **Nutzwert**                 | 44442,0       | 30218,0       | **74660,0** | 
 
-Summe aller Nutzwerte: **`74660,0g`**
+Summe aller Nutzwerte: **`74660,0`**
 
 ### 5.3 Nicht verladene Hardware
 | Nicht verladene Hardware | Übrige Einheiten | 

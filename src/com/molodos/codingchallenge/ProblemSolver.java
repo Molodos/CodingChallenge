@@ -258,6 +258,6 @@ public class ProblemSolver {
         }
 
         // Print total value of all loaded items
-        System.out.println("Summe aller Nutzwerte: " + String.format("%.1fg", totalValue));
+        System.out.println("Summe aller Nutzwerte: " + String.format("%.1f", totalValue));
     }
 }
