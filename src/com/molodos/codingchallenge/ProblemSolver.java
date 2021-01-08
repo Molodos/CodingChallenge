@@ -1,9 +1,11 @@
 package com.molodos.codingchallenge;
 
+import com.molodos.codingchallenge.gui.AlgorithmGUI;
 import com.molodos.codingchallenge.models.Item;
 import com.molodos.codingchallenge.models.ItemList;
 import com.molodos.codingchallenge.models.ItemTuple;
 import com.molodos.codingchallenge.models.Truck;
+import javafx.application.Application;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -19,11 +21,14 @@ public class ProblemSolver {
 
     /**
      * Main method is executed on programm start.
-     * Loads items and trucks and calculates an optimal loading list to load the trucks with a maximum total value.
+     * Opens GUI, loads items and trucks and calculates an optimal loading list to load the trucks with a maximum total value.
      *
      * @param args Command line arguments (currently the program doesn't take any command line arguments)
      */
     public static void main(String[] args) {
+        // Open and retrieve GUI
+        AlgorithmGUI gui = AlgorithmGUI.startGUI();
+
         // Use DataProvider to load items and trucks
         System.out.print("Hardware und Transporter werden eingelesen...");
         ItemList items = DataProvider.getSortedItems();
