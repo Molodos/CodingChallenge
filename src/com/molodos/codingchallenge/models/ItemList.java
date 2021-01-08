@@ -37,6 +37,22 @@ public class ItemList {
     }
 
     /**
+     * Creates a copy of the ItemList object.
+     *
+     * @return Copied ItemList object
+     */
+    public ItemList copy() {
+        // Create new list
+        ItemList copy = new ItemList(maxCapacity);
+
+        // Copy all items and return
+        for (Item item : items) {
+            copy.addItem(item.copy(item.getUnits()));
+        }
+        return copy;
+    }
+
+    /**
      * Adds an item to the item list if the maximum capacity allows it.
      *
      * @param item Item to be added to the item list

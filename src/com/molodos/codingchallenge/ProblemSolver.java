@@ -1,6 +1,7 @@
 package com.molodos.codingchallenge;
 
 import com.molodos.codingchallenge.gui.AlgorithmGUI;
+import com.molodos.codingchallenge.gui.DisplayData;
 import com.molodos.codingchallenge.models.Item;
 import com.molodos.codingchallenge.models.ItemList;
 import com.molodos.codingchallenge.models.ItemTuple;
@@ -26,14 +27,14 @@ public class ProblemSolver {
      * @param args Command line arguments (currently the program doesn't take any command line arguments)
      */
     public static void main(String[] args) {
-        // Open and retrieve GUI
-        AlgorithmGUI gui = AlgorithmGUI.startGUI();
-
         // Use DataProvider to load items and trucks
         System.out.print("Hardware und Transporter werden eingelesen...");
         ItemList items = DataProvider.getSortedItems();
         Truck[] trucks = DataProvider.getTrucks();
         System.out.println("fertig");
+
+        // Initialize and start GUI
+        AlgorithmGUI.startGUI(new DisplayData(items, trucks));
 
         // Initially fill trucks with most efficient items
         System.out.print("Transporter werden befüllt...");

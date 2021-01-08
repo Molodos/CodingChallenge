@@ -33,12 +33,38 @@ public class Truck extends ItemList {
     }
 
     /**
+     * Creates a copy of the Truck object.
+     *
+     * @return Copied Truck object
+     */
+    @Override
+    public Truck copy() {
+        // Create new truck
+        Truck copy = new Truck(name, capacity, driverWeight);
+
+        // Copy all items and return
+        for (Item item : getItems()) {
+            copy.addItem(item.copy(item.getUnits()));
+        }
+        return copy;
+    }
+
+    /**
      * Returns the total truck capacity.
      *
-     * @return total truck capacity
+     * @return Total truck capacity
      */
     public double getCapacity() {
         return capacity;
+    }
+
+    /**
+     * Returns the driver weight.
+     *
+     * @return Driver weight
+     */
+    public double getDriverWeight() {
+        return driverWeight;
     }
 
     /**
