@@ -8,23 +8,25 @@ Noch genauer handelt es sich dabei um das Multiple Knapsack Problem, da die Gege
 Da zum Knapsack-Problem bereits Lösungsmethoden bestehen, könnten diese auf die Aufgabenstellung angepasst und angewandt werden, um die Berechnung einer optimalen Lösung zu garantieren. Da bestehende Lösungsalgorithmen allerdings nicht für so große Mengen an Gegenständen wie in dieser Aufgabenstellung ausgelegt sind, erschien mir dies aus folgenden Gründen nicht der richtige Lösungsweg zu sein:
 
 1. Bei bestehenden Algorithmen wird über die Kapazitäten aller Rucksäcke und die Menge der Gegenstände iteriert. Da in der Aufgabenstellung allein die Größe eines Transporters mehr als 1 Mio Gramm beträgt, lässt sich bei nur zwei Transportern schon eine Gesamtzahl von mehreren Billionen Iterationen errechnen.
-2. Betrachtet man die Tatsache, dass die Ergebnisse der einzelnen Iterationen in einer mehrdimensionalen Matrix zwischengespeichert werden, so kann man sich errechnen, dass ohne signifikante Optimierungen mehrere TB Arbeitsspeicher benötigt werden, was die Kapazitäten jedes normalen Computers um weiten übersteigt.
-3. Die Speicherauslastung kann zwar optimiert werden, allerdings ist auch die Laufzeit, welche sich bei dem Ausmaß der Aufgabenstellung auf mehrere Stunden bis Tage beläuft, ein grundlegendes Problem.
+2. Betrachtet man die Tatsache, dass die Zwischenergebnisse der einzelnen Iterationen in einer mehrdimensionalen Matrix zwischengespeichert werden, so kann man sich errechnen, dass ohne signifikante Optimierungen mehrere TB Arbeitsspeicher benötigt werden, was die Kapazitäten jedes normalen Computers um weiten übersteigt.
+3. Die Speicherauslastung kann zwar optimiert werden, allerdings ist auch die Laufzeit, welche sich bei dem Ausmaß der gegebenen Aufgabenstellung auf mehrere Stunden bis Tage beläuft, ein grundlegendes Problem.
 
-Aufgrund der Abwägung zwischen einem sehr geringen Risiko, dass das Ergebnis nicht zu 100% optimal ist und einer extrem hohen Berechnungszeit habe ich mich daher für erstere Möglichkeit entschieden. 
+Aufgrund der Abwägung zwischen einem sehr geringen Risiko, dass das Ergebnis nicht zu 100% optimal ist und einer extrem hohen Berechnungszeit habe ich mich daher für erstere Möglichkeit entschieden, da beim Anwendungsgebiet, einen Transporter zu beladen auch in Realität eine Toleranz von wenigen Gramm unproblematisch sein dürfte. 
 
 ### 2.2 Linear Programming
-Die Aufgabenstellung könnte als lineares Gleichungssystem mit Constraints und einem Wert, welcher maximal werden soll, ausgedrückt werden. Mithilfe von Lösungsbibliotheken wie zum Beispiel dem *Glop Linear Solver* der *Google OR-Tools* könnte dann eine möglichst optimale Lösung bestimmt werden. Aufgrund folgender Gründe habe ich mich allerdings auch gegen diesen Ansatz entschieden:
+Die Aufgabenstellung könnte als lineares Gleichungssystem mit Constraints und einem Wert, welcher maximal werden soll, ausgedrückt werden. Mithilfe von Lösungsbibliotheken wie zum Beispiel dem *Glop Linear Solver* der *Google OR-Tools* könnte dann eine möglichst optimale Lösung schnell bestimmt werden. Aufgrund folgender Gründe habe ich mich allerdings trotzdem auch gegen diesen Ansatz entschieden:
 
 1. Durch die Benutzung von entsprechenden Solver-Bibliotheken entstehen viele Abhängigkeiten meines Codes von anderen Code-Stücken und teilweise sogar von auf dem Computer installierten Programmen.
-2. Da man bei diesem Lösungsansatz lediglich die Aufgabenstellung umformulieren würde und die eigentliche Lösung des Problems dem bereits vorhandenen Solver überlässt, denke ich, dass dies nicht das Ziel des Wettbewerbs ist.
+2. Da man bei diesem Lösungsansatz lediglich die Aufgabenstellung umformulieren würde und die eigentliche Lösung des Problems dem bereits vorhandenen Solver überlässt, denke ich, dass dies nicht das Ziel des Wettbewerbs ist, da kaum Eigenleistung erbracht werden müsste.
 
 ## 3. Eigener Algorithmus zur Lösung
+Aufgrund der soeben diskutierten schlechten Eignung der vorhandenen Lösungsmöglichkeiten habe ich den folgenden eigenen Lösungsalgorithmus entwickelt.
+
 ### 3.1 Funktionsweise
 1. Gegenstände aus der Datei `items.csv` und Transporter aus der Datei `trucks.csv` einlesen
 2. Gegenstände nach Effizienz (Nutzwert/Gewicht) sortieren
 3. Alle Transporter mit den effizientesten Gegenständen befüllen. Wenn keine mehr übrig sind oder nicht mehr genug Platz ist, mit zweit-effizientesten Gegenständen weitermachen und so weiter
-4. Gegenstands-Gruppen zwischen je zwei Transportern versuchen so zu tauschen, dass das übrige Gewicht in einem Transporter maximal wird
+4. Gegenstands-Gruppen zwischen je zwei Transportern versuchen so zu tauschen, dass die freie Kapazität in einem Transporter maximal wird, um in einem Transporter maximalen Platz für weitere Hardware zu schaffen
 5. Für jeden Transporter versuchen, Gegenstands-Gruppen mit Gegenstands-Gruppen aus dem übrigen nicht verladenen Vorrat so zu tauschen, dass der Gesamt-Nutzwert der Gegenstände im Transporter steigt
 6. Falls in *4.* oder *5.* eine Änderung durchgeführt wurde, wieder zu *4.* springen und dort fortsetzen
 7. Die Finale Beladung der Transporter in der Datei `solution.csv` speichern und anschließend ausgeben
@@ -37,7 +39,7 @@ Die Aufgabenstellung könnte als lineares Gleichungssystem mit Constraints und e
 1. Die Laufzeit beläuft sich nur auf wenige Sekundenbruchteile bis Sekunden
 2. Es werden für Gewichte und Nutzwerte auch Kommazahlen akzeptiert, was mit vielen anderen Lösungsalgorithmen nur sehr schwer umsetzbar wäre
 3. Die Eingabewerte sind frei anpassbar und erweiterbar. So können zum Beispiel zur Eingabedatei `trucks.csv` einfach weitere Transporter hinzugefügt werden, falls eine Ladeliste für mehr als zwei Transporter benötigt wird
-4. Es werden keinerlei Bibliotheken als Abhängigkeiten benötigt, das heißt, um das Programm auszuführen, muss lediglich Java installiert sein
+4. Es werden keinerlei Bibliotheken als Abhängigkeiten benötigt, das heißt, um das Programm auszuführen, muss lediglich Java JDK 8 installiert sein
 
 ## 4. Ausführung des Lösungsprogramms
 ### 4.1 Voraussetzungen
