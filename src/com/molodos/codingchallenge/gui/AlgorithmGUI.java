@@ -11,8 +11,13 @@ import javafx.stage.Stage;
 
 public class AlgorithmGUI extends Application {
 
-    public static void main(String[] args) {
-        launch(args);
+    private static volatile AlgorithmGUI algorithmGUI;
+
+    public static AlgorithmGUI startGUI() {
+        algorithmGUI = null;
+        new Thread(() -> launch(AlgorithmGUI.class)).start();
+        while(algorithmGUI == null);
+        return algorithmGUI;
     }
 
     @Override
@@ -37,8 +42,14 @@ public class AlgorithmGUI extends Application {
         primaryStage.setScene(scene);
         primaryStage.setTitle("AlgorithmGUI");
 
-        scene.getStylesheets().add(AlgorithmGUI.class.getResource("AlgorithmGUI.css").toExternalForm());
+        try {
+            scene.getStylesheets().add(AlgorithmGUI.class.getResource("AlgorithmGUI.css").toExternalForm());
+        } catch (Exception e) {
+            System.err.println("Error loading GUI styles, continuing with default styles...");
+        }
 
         primaryStage.show();
+
+        algorithmGUI = this;
     }
 }
