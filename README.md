@@ -52,18 +52,28 @@ Aufgrund der soeben diskutierten schlechten Eignung der vorhandenen Lösungsmög
 ### 4.1 Voraussetzungen
 Java JDK 8 muss installiert sein
 
-### 4.1 Ausführung
-#### 4.1.1 Linux
+### 4.2 Ausführung
+#### 4.2.1 Linux
 1. Im Stammverzeichnis des Repositories das Skript `start.sh` lokalisieren
 2. Das Skript entweder per Doppelklick oder aus der Konsole mit dem Befehle `sh ./start.sh` ausführen
 3. Das Programm wird nun kompiliert um anschließend automatisch ausgeführt
 4. Die Lösung erscheint nach der Berechnung in der Konsole und in der sich öffnenden Benutzeroberfläche. Außerdem wird sie in der Datei `solution.csv` gespeichert
 
-#### 4.1.2 Windows
+#### 4.2.2 Windows
 1. Im Stammverzeichnis des Repositories das Skript `start.bat` lokalisieren
 2. Das Skript entweder per Doppelklick oder aus der Konsole mit dem Befehle `./start.bat` ausführen
 3. Das Programm wird nun kompiliert um anschließend automatisch ausgeführt
 4. Die Lösung erscheint nach der Berechnung in der Konsole und in der sich öffnenden Benutzeroberfläche. Außerdem wird sie in der Datei `solution.csv` gespeichert
+
+### 4.3 Benutzeroberfläche
+Die Benutzeroberfläche visualisiert den Verlauf des Algorithmus und die Lösung. Dazu ist sie in fünf tabs untergliedert:
+* **Verfügbare Hardware**: Listet die zu verladende Hardware auf
+* **Verfügbare Transporter**: Listet die verfügbaren Transporter auf
+* **Nach erster Beladung**: Zeigt den Zustand der Beladung nach Schritt *3.*, vor die Optimierung stattgefunden hat
+* **Optimierungsvorgänge**: Visualisiert die getätigten Aktionen der Schritte *4.* bis *6.*, um den Gesamt-Nutzwert zu maximieren
+* **Finale Beladung**: Zeigt den Finalen Zustand der Beladung nach der ausführung des gesamten Algorithmus und damit die Lösung
+
+> In den Tabs **Nach erster Beladung** und **Finale Beladung** kann die Ansicht jeweils zwischen *Übersicht*, *Ladeliste* und *Übrige Hardware* gewechselt werden, um spezifische Informationen zu erhalten 
 
 ## 5. Lösung
 ### 5.1 Optimale Verteilung der Hardware
