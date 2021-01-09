@@ -1,4 +1,4 @@
-# Coding Challenge Lösung
+# Coding Challenge Dokumentation
 ## Inhalt
 1. [Analyse der Problemstellung](#1-analyse-der-problemstellung)
 2. [Ungeeignete Lösungsansätze](#2-ungeeignete-lösungsansätze)
