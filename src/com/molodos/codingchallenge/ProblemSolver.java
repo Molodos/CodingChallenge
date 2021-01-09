@@ -8,7 +8,6 @@ import com.molodos.codingchallenge.models.Item;
 import com.molodos.codingchallenge.models.ItemList;
 import com.molodos.codingchallenge.models.ItemTuple;
 import com.molodos.codingchallenge.models.Truck;
-import javafx.application.Application;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -31,9 +30,10 @@ public class ProblemSolver {
     public static void main(String[] args) {
         // Check args for "-nogui"
         boolean showGui = true;
-        for(String arg : args) {
-            if(arg.trim().equalsIgnoreCase("-nogui")) {
+        for (String arg : args) {
+            if (arg.trim().equalsIgnoreCase("-nogui")) {
                 showGui = false;
+                break;
             }
         }
 
@@ -48,7 +48,7 @@ public class ProblemSolver {
 
         // Initialize and start GUI (if enabled)
         DisplayData displayData = new DisplayData(items, trucks);
-        if(showGui) {
+        if (showGui) {
             AlgorithmGUI.startGUI(displayData);
         }
 

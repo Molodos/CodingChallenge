@@ -40,9 +40,9 @@ public class ItemTuple {
         addLoop:
         for (Item item : items) {
             // Add units if already exists
-            for (int i = 0; i < groupedItems.size(); i++) {
-                if (groupedItems.get(i).equals(item)) {
-                    groupedItems.get(i).addUnits(item.getUnits());
+            for (Item groupedItem : groupedItems) {
+                if (groupedItem.equals(item)) {
+                    groupedItem.addUnits(item.getUnits());
                     continue addLoop;
                 }
             }

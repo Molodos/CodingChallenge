@@ -81,7 +81,7 @@ public class ItemExchange {
      * @return Formatted total weight of item or null if spacer
      */
     public String getTotalWeight() {
-        if(item.getTotalWeight() == 0) {
+        if (item.getTotalWeight() == 0) {
             return null;
         }
         return new DecimalFormat("0.#####g").format(item.getTotalWeight());
@@ -93,7 +93,7 @@ public class ItemExchange {
      * @return Formatted total value of item or null if spacer
      */
     public String getTotalValue() {
-        if(item.getTotalValue() == 0) {
+        if (item.getTotalValue() == 0) {
             return null;
         }
         return new DecimalFormat("0.#####").format(item.getTotalValue());

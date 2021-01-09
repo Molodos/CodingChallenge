@@ -18,11 +18,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
-import javax.swing.*;
 import java.text.DecimalFormat;
 import java.util.List;
 
@@ -151,7 +148,7 @@ public class AlgorithmGUI extends Application {
      */
     private Node getOptimizationTabber(List<ItemExchangeGroup> exchangeGroups) {
         // Return text if no optimizations had to be done
-        if(exchangeGroups.size() == 0) {
+        if (exchangeGroups.size() == 0) {
             return getTextPane("Es waren keine Optimierungen notwendig", true);
         }
 
@@ -213,7 +210,7 @@ public class AlgorithmGUI extends Application {
         table.getItems().addAll(exchangeGroup.getExchanges());
 
         // Disable sorting as it makes no sense in this table
-        for (TableColumn column : table.getColumns()) {
+        for (TableColumn<?, ?> column : table.getColumns()) {
             column.setSortable(false);
         }
 
@@ -422,40 +419,22 @@ public class AlgorithmGUI extends Application {
         // Create and add columns for unit counts of all trucks
         for (Truck truck : trucks) {
             TableColumn<Item, Integer> units = new TableColumn<>("Einheiten " + truck.getName());
-            units.setCellValueFactory(new Callback() {
-                @Override
-                public Object call(Object param) {
-                    if (param instanceof TableColumn.CellDataFeatures) {
-                        TableColumn.CellDataFeatures cellData = (TableColumn.CellDataFeatures) param;
-                        if (cellData.getValue() instanceof Item) {
-                            Item item = (Item) cellData.getValue();
-                            return new SimpleIntegerProperty(truck.getUnits(item));
-                        }
-                    }
-                    return null;
-                }
+            units.setCellValueFactory(param -> {
+                Item item1 = param.getValue();
+                return new SimpleIntegerProperty(truck.getUnits(item1)).asObject();
             });
             table.getColumns().add(units);
         }
 
         // Create and add total count column
         TableColumn<Item, Integer> total = new TableColumn<>("Einheiten Gesamt");
-        total.setCellValueFactory(new Callback() {
-            @Override
-            public Object call(Object param) {
-                if (param instanceof TableColumn.CellDataFeatures) {
-                    TableColumn.CellDataFeatures cellData = (TableColumn.CellDataFeatures) param;
-                    if (cellData.getValue() instanceof Item) {
-                        Item item = (Item) cellData.getValue();
-                        int totalUnits = 0;
-                        for (Truck truck : trucks) {
-                            totalUnits += truck.getUnits(item);
-                        }
-                        return new SimpleIntegerProperty(totalUnits);
-                    }
-                }
-                return null;
+        total.setCellValueFactory(param -> {
+            Item item1 = param.getValue();
+            int totalUnits = 0;
+            for (Truck truck : trucks) {
+                totalUnits += truck.getUnits(item1);
             }
+            return new SimpleIntegerProperty(totalUnits).asObject();
         });
         table.getColumns().add(total);
 
@@ -484,36 +463,18 @@ public class AlgorithmGUI extends Application {
         // Create and add columns for unit counts of all trucks
         for (Truck truck : trucks) {
             TableColumn<OverviewLine, String> truckData = new TableColumn<>(truck.getName());
-            truckData.setCellValueFactory(new Callback() {
-                @Override
-                public Object call(Object param) {
-                    if (param instanceof TableColumn.CellDataFeatures) {
-                        TableColumn.CellDataFeatures cellData = (TableColumn.CellDataFeatures) param;
-                        if (cellData.getValue() instanceof OverviewLine) {
-                            OverviewLine line = (OverviewLine) cellData.getValue();
-                            return new SimpleStringProperty(line.getDisplay(truck));
-                        }
-                    }
-                    return null;
-                }
+            truckData.setCellValueFactory(param -> {
+                OverviewLine line = param.getValue();
+                return new SimpleStringProperty(line.getDisplay(truck));
             });
             table.getColumns().add(truckData);
         }
 
         // Create and add total column
         TableColumn<OverviewLine, String> total = new TableColumn<>("Gesamt");
-        total.setCellValueFactory(new Callback() {
-            @Override
-            public Object call(Object param) {
-                if (param instanceof TableColumn.CellDataFeatures) {
-                    TableColumn.CellDataFeatures cellData = (TableColumn.CellDataFeatures) param;
-                    if (cellData.getValue() instanceof OverviewLine) {
-                        OverviewLine line = (OverviewLine) cellData.getValue();
-                        return new SimpleStringProperty(line.getTotalDisplay());
-                    }
-                }
-                return null;
-            }
+        total.setCellValueFactory(param -> {
+            OverviewLine line = param.getValue();
+            return new SimpleStringProperty(line.getTotalDisplay());
         });
         table.getColumns().add(total);
 
@@ -533,7 +494,7 @@ public class AlgorithmGUI extends Application {
         table.getItems().addAll(capacity, driverWeight, totalWeight, remainingCapacity, value);
 
         // Disable sorting as it makes no sense in this table
-        for (TableColumn column : table.getColumns()) {
+        for (TableColumn<?, ?> column : table.getColumns()) {
             column.setSortable(false);
         }
 

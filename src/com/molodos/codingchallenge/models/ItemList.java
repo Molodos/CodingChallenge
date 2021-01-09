@@ -197,7 +197,7 @@ public class ItemList {
         // Upgrade the tuple list size times to contain the right tuples
         for (int i = 0; i < size; i++) {
             // Add new tuples and increase tuple size by one
-            tuples = upgradeTuples(tuples);
+            upgradeTuples(tuples);
         }
 
         // Return final tuple list
@@ -208,9 +208,8 @@ public class ItemList {
      * For each tuple in the list, duplicate it for every possible item to be added to finally have a list with all possible tuples having a one bigger size.
      *
      * @param tuples A list of tuples whose size should be increased by one
-     * @return A list with all according tuples having a one bigger size than the initial tuples
      */
-    private List<ItemTuple> upgradeTuples(List<ItemTuple> tuples) {
+    private void upgradeTuples(List<ItemTuple> tuples) {
         // Iterate backwards through all tuples in the list to not destroy indexes no already visited by removing items
         for (int i = tuples.size() - 1; i >= 0; i--) {
             // Remove and save tuple
@@ -236,9 +235,6 @@ public class ItemList {
                 }
             }
         }
-
-        // Return the upgraded tuple list
-        return tuples;
     }
 
     /**
