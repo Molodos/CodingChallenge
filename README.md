@@ -1,10 +1,10 @@
 # Coding Challenge Lösung
 ## Inhalt
-#### [1. Analyse der Problemstellung](#1-analyse-der-problemstellung)
-#### [2. Ungeeignete Lösungsansätze](#2-ungeeignete-lösungsansätze)
-#### [3. Eigener Algorithmus zur Lösung](#3-eigener-algorithmus-zur-lösung)
-#### [4. Ausführung des Lösungsprogramms](#4-ausführung-des-lösungsprogramms)
-#### [5. Lösung](#5-lösung)
+1. [Analyse der Problemstellung](#1-analyse-der-problemstellung)
+2. [Ungeeignete Lösungsansätze](#2-ungeeignete-lösungsansätze)
+3. [Eigener Algorithmus zur Lösung](#3-eigener-algorithmus-zur-lösung)
+4. [Ausführung des Lösungsprogramms](#4-ausführung-des-lösungsprogramms)
+5. [Lösung](#5-lösung)
 
 ## 1. Analyse der Problemstellung
 Bei der Aufgabenstellung handelt es sich um eine Variante des Knapsack Problems, welches ein Optimierungsproblem darstellt in dem man versucht Gegenstände, welche einen Wert und ein Gewicht haben, so in einen Rucksack mit begrenzter Traglast zu laden, dass der Gesamtwert aller Gegenstände im Rucksack maximal ist.  
