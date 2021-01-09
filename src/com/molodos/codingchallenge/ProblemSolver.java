@@ -2,6 +2,8 @@ package com.molodos.codingchallenge;
 
 import com.molodos.codingchallenge.gui.AlgorithmGUI;
 import com.molodos.codingchallenge.gui.DisplayData;
+import com.molodos.codingchallenge.gui.ItemExchange;
+import com.molodos.codingchallenge.gui.ItemExchangeGroup;
 import com.molodos.codingchallenge.models.Item;
 import com.molodos.codingchallenge.models.ItemList;
 import com.molodos.codingchallenge.models.ItemTuple;
@@ -46,7 +48,7 @@ public class ProblemSolver {
         // Exchange items between trucks and unloaded items to optimize the total value of all loaded items
         // Only search for exchangeable item tuples with a maximum of five items in order to save time whilst having no significant result quality loss
         System.out.print("Beladung wird optimiert...");
-        optimizeTrucksLoad(trucks, items, 5);
+        optimizeTrucksLoad(trucks, items, 5, displayData);
         displayData.setAfterOptimization(trucks, items);
         System.out.println("fertig");
 
@@ -92,8 +94,9 @@ public class ProblemSolver {
      * @param trucks       Truck objects whose load should be optimized
      * @param items        Items that are not loaded already to fill truck with if needed
      * @param maxTupleSize Maximum item count of tuples to exchange at once (lower values lead to faster calculation)
+     * @param displayData  DisplayData object to log exchanges to
      */
-    private static void optimizeTrucksLoad(Truck[] trucks, ItemList items, int maxTupleSize) {
+    private static void optimizeTrucksLoad(Truck[] trucks, ItemList items, int maxTupleSize, DisplayData displayData) {
         // Local variables to show whether or not maximizations were done in the last iteration
         boolean freeSpaceDone = true;
         boolean valueDone = true;
@@ -108,7 +111,7 @@ public class ProblemSolver {
             if (trucks.length > 1) {
                 for (int i = 0; i < trucks.length - 1; i++) {
                     // If maximization of neighbour trucks brings any changes, set boolean to true in order to allow another iteration
-                    if (maximizeFreeSpace(trucks[i], trucks[i + 1], maxTupleSize)) {
+                    if (maximizeFreeSpace(trucks[i], trucks[i + 1], maxTupleSize, displayData)) {
                         freeSpaceDone = true;
                     }
                 }
@@ -117,11 +120,14 @@ public class ProblemSolver {
             // For all trucks, try maximizing the total value by exchanging item tuples with item tuples from the unloaded items
             for (Truck truck : trucks) {
                 // If maximization of total value brings any changes, set boolean to true in order to allow another iteration
-                if (maximizeValue(truck, items, maxTupleSize)) {
+                if (maximizeValue(truck, items, maxTupleSize, displayData)) {
                     valueDone = true;
                 }
             }
         }
+
+        // Make exchange log available for display in GUI
+        displayData.lastExchangeDone();
     }
 
     /**
@@ -131,9 +137,13 @@ public class ProblemSolver {
      * @param truckA       First truck to use for exchanging items
      * @param truckB       Second truck to use for exchanging items
      * @param maxTupleSize Maximum item count of tuples to exchange at once (lower values lead to faster calculation)
+     * @param displayData  DisplayData object to log exchanges to
      * @return true if truck load was changed, else false
      */
-    private static boolean maximizeFreeSpace(Truck truckA, Truck truckB, int maxTupleSize) {
+    private static boolean maximizeFreeSpace(Truck truckA, Truck truckB, int maxTupleSize, DisplayData displayData) {
+        // Initialize exchange group
+        ItemExchangeGroup exchangeGroup = new ItemExchangeGroup();
+
         // Local variable to store whether or not modifications were made to truck load
         boolean modificationsMade = false;
 
@@ -172,10 +182,19 @@ public class ProblemSolver {
                         // Add items from the tuples to the other truck
                         for (Item item : tupleA.getAllItems()) {
                             truckB.addItem(item);
+
+                            // Save exchange to group
+                            exchangeGroup.addExchange(new ItemExchange(item, truckA.getName(), truckB.getName()));
                         }
                         for (Item item : tupleB.getAllItems()) {
                             truckA.addItem(item);
+
+                            // Save exchange to group
+                            exchangeGroup.addExchange(new ItemExchange(item, truckB.getName(), truckA.getName()));
                         }
+
+                        // Add spacer to exchange group
+                        exchangeGroup.addExchange(ItemExchange.getSpacer());
 
                         // Set boolean to signal, that changes were made
                         modificationsMade = true;
@@ -189,6 +208,11 @@ public class ProblemSolver {
             break;
         }
 
+        // Save exchanges if modifications were done
+        if (modificationsMade) {
+            displayData.addItemExchangeGroup(exchangeGroup);
+        }
+
         // Return whether or not modifications were made to truck load
         return modificationsMade;
     }
@@ -200,9 +224,13 @@ public class ProblemSolver {
      * @param truck        Truck whose value should be maximized
      * @param items        Unloaded items to use for exchanging items
      * @param maxTupleSize Maximum item count of tuples to exchange at once (lower values lead to faster calculation)
+     * @param displayData  DisplayData object to log exchanges to
      * @return true if truck load was changed, else false
      */
-    private static boolean maximizeValue(Truck truck, ItemList items, int maxTupleSize) {
+    private static boolean maximizeValue(Truck truck, ItemList items, int maxTupleSize, DisplayData displayData) {
+        // Initialize exchange group
+        ItemExchangeGroup exchangeGroup = new ItemExchangeGroup();
+
         // Local variable to store whether or not modifications were made to truck load
         boolean modificationsMade = false;
 
@@ -226,13 +254,22 @@ public class ProblemSolver {
                         for (Item item : tuple.getAllItems()) {
                             truck.removeItem(item);
                             items.addItem(item);
+
+                            // Save exchange to group
+                            exchangeGroup.addExchange(new ItemExchange(item, truck.getName(), "[Nicht verladene Hardware]"));
                         }
 
                         // Refill truck by exchanging replace tuple from unused items to truck load
                         for (Item item : replace.getAllItems()) {
                             items.removeItem(item);
                             truck.addItem(item);
+
+                            // Save exchange to group
+                            exchangeGroup.addExchange(new ItemExchange(item, "[Nicht verladene Hardware]", truck.getName()));
                         }
+
+                        // Add spacer to exchange group
+                        exchangeGroup.addExchange(ItemExchange.getSpacer());
 
                         // Set boolean to signal, that changes were made
                         modificationsMade = true;
@@ -244,6 +281,11 @@ public class ProblemSolver {
             }
             // End loop if no more changes were possible
             break;
+        }
+
+        // Save exchanges if modifications were done
+        if (modificationsMade) {
+            displayData.addItemExchangeGroup(exchangeGroup);
         }
 
         // Return whether or not modifications were made to truck load

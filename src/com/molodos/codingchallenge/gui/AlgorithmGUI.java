@@ -25,6 +25,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.text.DecimalFormat;
+import java.util.List;
 
 /**
  * This class defines the GUI functionalities to display execution information.
@@ -111,6 +112,14 @@ public class AlgorithmGUI extends Application {
                             }
                             break;
                         case 1:
+                            // Check if optimization exchanges
+                            if (displayData.getExchangeGroups() != null) {
+                                optimization.setContent(getOptimizationTabber(displayData.getExchangeGroups()));
+                                rootPane.getSelectionModel().select(optimization);
+                                updatesDone[0]++;
+                            }
+                            break;
+                        case 2:
                             // Check if final solution arrived
                             if (displayData.getAfterOptimizationList() != null) {
                                 solution.setContent(getDetailsTabber(displayData.getAfterOptimizationTrucks(), displayData.getAfterOptimizationList()));
@@ -122,6 +131,68 @@ public class AlgorithmGUI extends Application {
             }
         };
         timer.start();
+    }
+
+    /**
+     * Creates a tabber displaying optimization details.
+     *
+     * @param exchangeGroups Exchanges of optimization to display
+     * @return Created tabber
+     */
+    private Node getOptimizationTabber(List<ItemExchangeGroup> exchangeGroups) {
+        // Initialize tab pane as root pane
+        TabPane optimizationTabber = new TabPane();
+
+        // Create tabs for all exchange groups
+        for(int i = 0; i < exchangeGroups.size(); i++) {
+            Tab exchangeTab = new Tab(String.valueOf(i + 1), getOptimizationTable(exchangeGroups.get(i)));
+            exchangeTab.setClosable(false);
+            optimizationTabber.getTabs().add(exchangeTab);
+        }
+
+        // Set design
+        optimizationTabber.setSide(Side.LEFT);
+
+        // Return tabber
+        return optimizationTabber;
+    }
+
+    /**
+     * Creates a table displaying optimization exchange group details.
+     *
+     * @param exchangeGroup Exchange group to be displayed
+     * @return Created table
+     */
+    private Node getOptimizationTable(ItemExchangeGroup exchangeGroup) {
+        // Create table
+        TableView<ItemExchange> table = new TableView<>();
+
+        // Create and map columns
+        TableColumn<ItemExchange, String> source = new TableColumn<>("Von");
+        source.setCellValueFactory(new PropertyValueFactory<>("source"));
+        TableColumn<ItemExchange, String> destination = new TableColumn<>("Nach");
+        destination.setCellValueFactory(new PropertyValueFactory<>("destination"));
+        TableColumn<ItemExchange, String> itemName = new TableColumn<>("Hardware");
+        itemName.setCellValueFactory(new PropertyValueFactory<>("itemName"));
+        TableColumn<ItemExchange, String> units = new TableColumn<>("Anzahl");
+        units.setCellValueFactory(new PropertyValueFactory<>("units"));
+
+        // Add columns
+        table.getColumns().add(source);
+        table.getColumns().add(destination);
+        table.getColumns().add(itemName);
+        table.getColumns().add(units);
+
+        // Add exchanges to table
+        table.getItems().addAll(exchangeGroup.getExchanges());
+
+        // Disable sorting as it makes no sense in this table
+        for (TableColumn column : table.getColumns()) {
+            column.setSortable(false);
+        }
+
+        // Return the created table
+        return table;
     }
 
     /**

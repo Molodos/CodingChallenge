@@ -3,6 +3,9 @@ package com.molodos.codingchallenge.gui;
 import com.molodos.codingchallenge.models.ItemList;
 import com.molodos.codingchallenge.models.Truck;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * This class is for saving snapshots of the current program state to later display in th GUI.
  *
@@ -17,6 +20,10 @@ public class DisplayData {
     // Data after first load
     private ItemList afterFirstLoadList = null;
     private Truck[] afterFirstLoadTrucks = null;
+
+    // Optimization exchanges
+    private boolean allExchangesDone = false;
+    private final List<ItemExchangeGroup> exchanges = new ArrayList<>();
 
     // Data after optimization
     private ItemList afterOptimizationList = null;
@@ -60,6 +67,22 @@ public class DisplayData {
 
         // Save the trucks array copy
         afterFirstLoadTrucks = copiedTrucks;
+    }
+
+    /**
+     * Adds an exchange group to the list.
+     *
+     * @param itemExchangeGroup Exchange group to be added
+     */
+    public void addItemExchangeGroup(ItemExchangeGroup itemExchangeGroup) {
+        exchanges.add(itemExchangeGroup);
+    }
+
+    /**
+     * Finishes exchanges to make them available for GUI visualisation.
+     */
+    public void lastExchangeDone() {
+        allExchangesDone = true;
     }
 
     /**
@@ -116,6 +139,15 @@ public class DisplayData {
      */
     public Truck[] getAfterFirstLoadTrucks() {
         return afterFirstLoadTrucks;
+    }
+
+    /**
+     * Returns a list of all optimization exchanges if optimization is finished.
+     *
+     * @return A list of all optimization exchanges of null if optimization is not finished yet
+     */
+    public List<ItemExchangeGroup> getExchangeGroups() {
+        return allExchangesDone ? exchanges : null;
     }
 
     /**
