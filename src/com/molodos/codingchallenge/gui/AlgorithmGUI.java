@@ -5,12 +5,8 @@ import com.molodos.codingchallenge.models.ItemList;
 import com.molodos.codingchallenge.models.Truck;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.beans.InvalidationListener;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.Node;
@@ -35,7 +31,7 @@ import java.util.List;
 public class AlgorithmGUI extends Application {
 
     // Static Strings shown in the GUI
-    private static final String TITLE = "Algorithmus GUI";
+    private static final String TITLE = "Transporter Coding Challenge";
     private static final String LOADING = "Wird berechnet...";
 
     // Object to query execution data to be displayed from
