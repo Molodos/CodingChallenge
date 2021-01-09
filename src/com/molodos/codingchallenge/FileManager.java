@@ -165,8 +165,28 @@ public class FileManager {
         // Add header for total value and end line
         output.append(",Gesamt\r\n");
 
+        // Add total capacities
+        output.append("Kapazität");
+        double totalCapacity = 0;
+        for (Truck truck : trucks) {
+            output.append(",");
+            totalCapacity += truck.getCapacity();
+            output.append("\"").append(decimalFormat.format(truck.getCapacity())).append("g\"");
+        }
+        output.append(",\"").append(decimalFormat.format(totalCapacity)).append("g\"\r\n");
+
+        // Add weights of drivers
+        output.append("Gewicht Fahrer");
+        double totalDriverWeight = 0;
+        for (Truck truck : trucks) {
+            output.append(",");
+            totalDriverWeight += truck.getDriverWeight();
+            output.append("\"").append(decimalFormat.format(truck.getDriverWeight())).append("g\"");
+        }
+        output.append(",\"").append(decimalFormat.format(totalDriverWeight)).append("g\"\r\n");
+
         // Add total weights with driver
-        output.append("Gewicht inklusive Fahrer");
+        output.append("Gewicht gesamt");
         double totalWeight = 0;
         for (Truck truck : trucks) {
             output.append(",");

@@ -6,7 +6,9 @@ import com.molodos.codingchallenge.models.Truck;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.beans.InvalidationListener;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
@@ -134,7 +136,7 @@ public class AlgorithmGUI extends Application {
         TabPane detailsTabber = new TabPane();
 
         // Create overview tab
-        Tab overview = new Tab("Übersicht", getLoadingPane());
+        Tab overview = new Tab("Übersicht", getOverviewTable(trucks));
         overview.setClosable(false);
         detailsTabber.getTabs().add(overview);
 
@@ -228,7 +230,7 @@ public class AlgorithmGUI extends Application {
             table.getColumns().add(efficiency);
         }
 
-        // Add items to list
+        // Add items to table
         table.getItems().addAll(itemList.getItems());
 
         // Return the created table
@@ -297,7 +299,7 @@ public class AlgorithmGUI extends Application {
         table.getColumns().add(driverWeight);
         table.getColumns().add(remainingCapacity);
 
-        // Add trucks to list
+        // Add trucks to table
         table.getItems().addAll(trucks);
 
         // Return the created table
@@ -360,8 +362,83 @@ public class AlgorithmGUI extends Application {
         });
         table.getColumns().add(total);
 
-        // Add item lines to list
+        // Add item lines to table
         table.getItems().addAll(items.getItems());
+
+        // Return the created table
+        return table;
+    }
+
+    /**
+     * Formats a truck array as a overview table.
+     *
+     * @param trucks Trucks to be formatted
+     * @return Table containing the trucks overview information
+     */
+    private Node getOverviewTable(Truck[] trucks) {
+        // Create table
+        TableView<OverviewLine> table = new TableView<>();
+
+        // Create and add target column
+        TableColumn<OverviewLine, String> item = new TableColumn<>("");
+        item.setCellValueFactory(new PropertyValueFactory<>("name"));
+        table.getColumns().add(item);
+
+        // Create and add columns for unit counts of all trucks
+        for (Truck truck : trucks) {
+            TableColumn<OverviewLine, String> truckData = new TableColumn<>(truck.getName());
+            truckData.setCellValueFactory(new Callback() {
+                @Override
+                public Object call(Object param) {
+                    if (param instanceof TableColumn.CellDataFeatures) {
+                        TableColumn.CellDataFeatures cellData = (TableColumn.CellDataFeatures) param;
+                        if (cellData.getValue() instanceof OverviewLine) {
+                            OverviewLine line = (OverviewLine) cellData.getValue();
+                            return new SimpleStringProperty(line.getDisplay(truck));
+                        }
+                    }
+                    return null;
+                }
+            });
+            table.getColumns().add(truckData);
+        }
+
+        // Create and add total column
+        TableColumn<OverviewLine, String> total = new TableColumn<>("Gesamt");
+        total.setCellValueFactory(new Callback() {
+            @Override
+            public Object call(Object param) {
+                if (param instanceof TableColumn.CellDataFeatures) {
+                    TableColumn.CellDataFeatures cellData = (TableColumn.CellDataFeatures) param;
+                    if (cellData.getValue() instanceof OverviewLine) {
+                        OverviewLine line = (OverviewLine) cellData.getValue();
+                        return new SimpleStringProperty(line.getTotalDisplay());
+                    }
+                }
+                return null;
+            }
+        });
+        table.getColumns().add(total);
+
+        // Add lines to table
+        OverviewLine capacity = new OverviewLine("Kapazität", true);
+        OverviewLine driverWeight = new OverviewLine("Gewicht Fahrer", true);
+        OverviewLine totalWeight = new OverviewLine("Gewicht gesamt", true);
+        OverviewLine remainingCapacity = new OverviewLine("Freie Kapazität", true);
+        OverviewLine value = new OverviewLine("Nutzwert", false);
+        for (Truck truck : trucks) {
+            capacity.addValue(truck, truck.getCapacity());
+            driverWeight.addValue(truck, truck.getDriverWeight());
+            totalWeight.addValue(truck, truck.getCapacity() - truck.getRemainingCapacity());
+            remainingCapacity.addValue(truck, truck.getRemainingCapacity());
+            value.addValue(truck, truck.getTotalValue());
+        }
+        table.getItems().addAll(capacity, driverWeight, totalWeight, remainingCapacity, value);
+
+        // Disable sorting as it makes no sense in this table
+        for (TableColumn column : table.getColumns()) {
+            column.setSortable(false);
+        }
 
         // Return the created table
         return table;

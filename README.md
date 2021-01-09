@@ -74,11 +74,13 @@ Java JDK 8 muss installiert sein
 | Notebook Büro 14"       | 0                       | 0                       | 0                | 
 
 ### 5.2 Gesamtwerte
-|                              | Transporter 1 | Transporter 2 | Gesamt      | 
-|------------------------------|---------------|---------------|-------------| 
-| **Gewicht inklusive Fahrer** | 1099971g      | 1100000g      | 2199971g    | 
-| **Freie Kapazität**          | 29g           | 0g            | 29g         | 
-| **Nutzwert**                 | 44442         | 30218         | **74660**   | 
+|                     | Transporter 1 | Transporter 2 | Gesamt      | 
+|---------------------|---------------|---------------|-------------| 
+| **Kapazität**       | 1100000g      | 1100000g      | 2200000g    | 
+| **Gewicht Fahrer**  | 72400g        | 85700g        | 158100g     | 
+| **Gewicht gesamt**  | 1099971g      | 1100000g      | 2199971g    | 
+| **Freie Kapazität** | 29g           | 0g            | 29g         | 
+| **Nutzwert**        | 44442         | 30218         | **74660**   | 
 
 Summe aller Nutzwerte: **`74660`**
 

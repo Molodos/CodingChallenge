@@ -86,8 +86,10 @@ public class Truck extends ItemList {
         DecimalFormat decimalFormat = new DecimalFormat("0.#####");
         return String.format("%s:%n" +
                 "%s%n" +
-                "Gewicht inklusive Fahrer: %sg%n" +
-                "Freie Kapazität:          %sg%n" +
-                "Nutzwert:                 %s", name, super.toString(), decimalFormat.format(capacity - driverWeight), decimalFormat.format(getRemainingCapacity()), decimalFormat.format(getTotalValue()));
+                "Kapazität:       %sg%n" +
+                "Gewicht Fahrer:  %sg%n" +
+                "Gewicht gesamt:  %sg%n" +
+                "Freie Kapazität: %sg%n" +
+                "Nutzwert:        %s", name, super.toString(), decimalFormat.format(getCapacity()), decimalFormat.format(getDriverWeight()), decimalFormat.format(getCapacity() - getRemainingCapacity()), decimalFormat.format(getRemainingCapacity()), decimalFormat.format(getTotalValue()));
     }
 }
