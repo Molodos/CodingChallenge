@@ -34,17 +34,20 @@ public class ProblemSolver {
         System.out.println("fertig");
 
         // Initialize and start GUI
-        AlgorithmGUI.startGUI(new DisplayData(items, trucks));
+        DisplayData displayData = new DisplayData(items, trucks);
+        AlgorithmGUI.startGUI(displayData);
 
         // Initially fill trucks with most efficient items
         System.out.print("Transporter werden befüllt...");
         fillTrucks(trucks, items);
+        displayData.setAfterFirstLoad(trucks, items);
         System.out.println("fertig");
 
         // Exchange items between trucks and unloaded items to optimize the total value of all loaded items
         // Only search for exchangeable item tuples with a maximum of five items in order to save time whilst having no significant result quality loss
         System.out.print("Beladung wird optimiert...");
         optimizeTrucksLoad(trucks, items, 5);
+        displayData.setAfterOptimization(trucks, items);
         System.out.println("fertig");
 
         // Save calculated optimal loading list for the trucks and some other stats

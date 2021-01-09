@@ -5,7 +5,12 @@ import com.molodos.codingchallenge.models.ItemList;
 import com.molodos.codingchallenge.models.Truck;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.beans.InvalidationListener;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
+import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -15,6 +20,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.text.DecimalFormat;
 
@@ -56,7 +62,7 @@ public class AlgorithmGUI extends Application {
         TabPane rootPane = new TabPane();
 
         // Create tabs
-        Tab items = new Tab("Verfügbare Hardware", getItemTable(displayData.getInitialList()));
+        Tab items = new Tab("Verfügbare Hardware", getItemTable(displayData.getInitialList(), true, "Anzahl verfügbar"));
         Tab trucks = new Tab("Verfügbare Transporter", getTruckTable(displayData.getInitialTrucks()));
         Tab initial = new Tab("Nach erster Beladung", getLoadingPane());
         Tab optimization = new Tab("Optimierungsvorgänge", getLoadingPane());
@@ -85,80 +91,142 @@ public class AlgorithmGUI extends Application {
         primaryStage.show();
 
         // Update GUI from DisplayData
+        final long[] lastCheck = {0};
+        final int[] updatesDone = {0};
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                // TODO: Query execution data
+                // Check for new data five times per second
+                if (System.currentTimeMillis() - lastCheck[0] > 200) {
+                    lastCheck[0] = System.currentTimeMillis();
+                    switch (updatesDone[0]) {
+                        case 0:
+                            // Check if initial loading is done
+                            if (displayData.getAfterFirstLoadList() != null) {
+                                initial.setContent(getDetailsTabber(displayData.getAfterFirstLoadTrucks(), displayData.getAfterFirstLoadList()));
+                                rootPane.getSelectionModel().select(initial);
+                                updatesDone[0]++;
+                            }
+                            break;
+                        case 1:
+                            // Check if final solution arrived
+                            if (displayData.getAfterOptimizationList() != null) {
+                                solution.setContent(getDetailsTabber(displayData.getAfterOptimizationTrucks(), displayData.getAfterOptimizationList()));
+                                rootPane.getSelectionModel().select(solution);
+                                updatesDone[0]++;
+                            }
+                    }
+                }
             }
         };
         timer.start();
     }
 
     /**
+     * Creates a tabber with tables for snapshot details.
+     *
+     * @param trucks Trucks to display
+     * @param items  Unloaded items to display
+     * @return Created tabber
+     */
+    private Node getDetailsTabber(Truck[] trucks, ItemList items) {
+        // Initialize tab pane as root pane
+        TabPane detailsTabber = new TabPane();
+
+        // Create overview tab
+        Tab overview = new Tab("Übersicht", getLoadingPane());
+        overview.setClosable(false);
+        detailsTabber.getTabs().add(overview);
+
+        // Create load list tab
+        Tab loadList = new Tab("Ladeliste", getTruckLoadTable(trucks, items));
+        loadList.setClosable(false);
+        detailsTabber.getTabs().add(loadList);
+
+        // Create items left tab
+        Tab itemsLeft = new Tab("Übrige Hardware", getItemTable(items, false, "Anzahl übrig"));
+        itemsLeft.setClosable(false);
+        detailsTabber.getTabs().add(itemsLeft);
+
+        // Set design
+        detailsTabber.setSide(Side.LEFT);
+
+        // Return tabber
+        return detailsTabber;
+    }
+
+    /**
      * Formats an item list as a table.
      *
-     * @param itemList Item list to be formatted
+     * @param itemList   Item list to be formatted
+     * @param details    Show detail columns like efficiency, value and weight
+     * @param unitHeader Title of the units column
      * @return Table containing the item lists information
      */
-    private Node getItemTable(ItemList itemList) {
+    private Node getItemTable(ItemList itemList, boolean details, String unitHeader) {
         // Create table
         TableView<Item> table = new TableView<>();
 
-        // Create and map columns
+        // Create and map base columns
         TableColumn<Item, String> name = new TableColumn<>("Hardware");
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
-        TableColumn<Item, Integer> units = new TableColumn<>("Anzahl Verfügbar");
+        TableColumn<Item, Integer> units = new TableColumn<>(unitHeader);
         units.setCellValueFactory(new PropertyValueFactory<>("units"));
-        TableColumn<Item, Double> weight = new TableColumn<>("Gewicht");
-        weight.setCellValueFactory(new PropertyValueFactory<>("weight"));
-        TableColumn<Item, Double> value = new TableColumn<>("Nutzwert");
-        value.setCellValueFactory(new PropertyValueFactory<>("value"));
-        TableColumn<Item, Double> efficiency = new TableColumn<>("Effizienz");
-        efficiency.setCellValueFactory(new PropertyValueFactory<>("efficiency"));
 
-        // Set localized double formatter
-        DecimalFormat decimalFormat = new DecimalFormat("0.#####");
-        DecimalFormat decimalFormatGrams = new DecimalFormat("0.#####g");
-        weight.setCellFactory(tc -> new TableCell<Item, Double>() {
-            @Override
-            protected void updateItem(Double price, boolean empty) {
-                super.updateItem(price, empty);
-                if (empty) {
-                    setText(null);
-                } else {
-                    setText(decimalFormatGrams.format(price));
-                }
-            }
-        });
-        value.setCellFactory(tc -> new TableCell<Item, Double>() {
-            @Override
-            protected void updateItem(Double price, boolean empty) {
-                super.updateItem(price, empty);
-                if (empty) {
-                    setText(null);
-                } else {
-                    setText(decimalFormat.format(price));
-                }
-            }
-        });
-        efficiency.setCellFactory(tc -> new TableCell<Item, Double>() {
-            @Override
-            protected void updateItem(Double price, boolean empty) {
-                super.updateItem(price, empty);
-                if (empty) {
-                    setText(null);
-                } else {
-                    setText(decimalFormat.format(price));
-                }
-            }
-        });
-
-        // Add columns
+        // Add base columns
         table.getColumns().add(name);
         table.getColumns().add(units);
-        table.getColumns().add(weight);
-        table.getColumns().add(value);
-        table.getColumns().add(efficiency);
+
+        // Create and map detail columns
+        if (details) {
+            TableColumn<Item, Double> weight = new TableColumn<>("Gewicht");
+            weight.setCellValueFactory(new PropertyValueFactory<>("weight"));
+            TableColumn<Item, Double> value = new TableColumn<>("Nutzwert");
+            value.setCellValueFactory(new PropertyValueFactory<>("value"));
+            TableColumn<Item, Double> efficiency = new TableColumn<>("Effizienz");
+            efficiency.setCellValueFactory(new PropertyValueFactory<>("efficiency"));
+
+            // Set localized double formatter if details enabled
+            DecimalFormat decimalFormat = new DecimalFormat("0.#####");
+            DecimalFormat decimalFormatGrams = new DecimalFormat("0.#####g");
+            weight.setCellFactory(tc -> new TableCell<Item, Double>() {
+                @Override
+                protected void updateItem(Double price, boolean empty) {
+                    super.updateItem(price, empty);
+                    if (empty) {
+                        setText(null);
+                    } else {
+                        setText(decimalFormatGrams.format(price));
+                    }
+                }
+            });
+            value.setCellFactory(tc -> new TableCell<Item, Double>() {
+                @Override
+                protected void updateItem(Double price, boolean empty) {
+                    super.updateItem(price, empty);
+                    if (empty) {
+                        setText(null);
+                    } else {
+                        setText(decimalFormat.format(price));
+                    }
+                }
+            });
+            efficiency.setCellFactory(tc -> new TableCell<Item, Double>() {
+                @Override
+                protected void updateItem(Double price, boolean empty) {
+                    super.updateItem(price, empty);
+                    if (empty) {
+                        setText(null);
+                    } else {
+                        setText(decimalFormat.format(price));
+                    }
+                }
+            });
+            // Add detail columns
+            table.getColumns().add(weight);
+            table.getColumns().add(value);
+            table.getColumns().add(efficiency);
+        }
 
         // Add items to list
         table.getItems().addAll(itemList.getItems());
@@ -231,6 +299,69 @@ public class AlgorithmGUI extends Application {
 
         // Add trucks to list
         table.getItems().addAll(trucks);
+
+        // Return the created table
+        return table;
+    }
+
+    /**
+     * Formats a truck array as a load list table.
+     *
+     * @param trucks Trucks to be formatted
+     * @param items  List of items to add lines for
+     * @return Table containing the trucks load list
+     */
+    private Node getTruckLoadTable(Truck[] trucks, ItemList items) {
+        // Create table
+        TableView<Item> table = new TableView<>();
+
+        // Create and add item name column
+        TableColumn<Item, String> item = new TableColumn<>("Hardware");
+        item.setCellValueFactory(new PropertyValueFactory<>("name"));
+        table.getColumns().add(item);
+
+        // Create and add columns for unit counts of all trucks
+        for (Truck truck : trucks) {
+            TableColumn<Item, Integer> units = new TableColumn<>("Einheiten " + truck.getName());
+            units.setCellValueFactory(new Callback() {
+                @Override
+                public Object call(Object param) {
+                    if (param instanceof TableColumn.CellDataFeatures) {
+                        TableColumn.CellDataFeatures cellData = (TableColumn.CellDataFeatures) param;
+                        if (cellData.getValue() instanceof Item) {
+                            Item item = (Item) cellData.getValue();
+                            return new SimpleIntegerProperty(truck.getUnits(item));
+                        }
+                    }
+                    return null;
+                }
+            });
+            table.getColumns().add(units);
+        }
+
+        // Create and add total count column
+        TableColumn<Item, Integer> total = new TableColumn<>("Einheiten Gesamt");
+        total.setCellValueFactory(new Callback() {
+            @Override
+            public Object call(Object param) {
+                if (param instanceof TableColumn.CellDataFeatures) {
+                    TableColumn.CellDataFeatures cellData = (TableColumn.CellDataFeatures) param;
+                    if (cellData.getValue() instanceof Item) {
+                        Item item = (Item) cellData.getValue();
+                        int totalUnits = 0;
+                        for (Truck truck : trucks) {
+                            totalUnits += truck.getUnits(item);
+                        }
+                        return new SimpleIntegerProperty(totalUnits);
+                    }
+                }
+                return null;
+            }
+        });
+        table.getColumns().add(total);
+
+        // Add item lines to list
+        table.getItems().addAll(items.getItems());
 
         // Return the created table
         return table;
