@@ -203,13 +203,13 @@ public class DisplayData {
 
         // Format
         StringBuilder formatted = new StringBuilder();
-        if(days > 0) {
+        if (days > 0) {
             formatted.append(days).append(days == 1 ? " Tag und " : " Tage und ").append(hours).append(hours == 1 ? " Stunde" : " Stunden");
-        } else if(hours > 0) {
+        } else if (hours > 0) {
             formatted.append(hours).append(hours == 1 ? " Stunde und " : " Stunden und ").append(minutes).append(minutes == 1 ? " Minute" : " Minuten");
-        } else if(minutes > 0) {
+        } else if (minutes > 0) {
             formatted.append(minutes).append(minutes == 1 ? " Minute und " : " Minuten und ").append(seconds).append(seconds == 1 ? " Sekunde" : " Sekunden");
-        } else if(seconds > 0) {
+        } else if (seconds > 0) {
             formatted.append(seconds).append(seconds == 1 ? " Sekunde und " : " Sekunden und ").append(milliseconds).append(milliseconds == 1 ? " Millisekunde" : " Millisekunden");
         } else {
             formatted.append(milliseconds).append(milliseconds == 1 ? " Millisekunde" : " Millisekunden");

@@ -122,6 +122,12 @@ public class AlgorithmGUI extends Application {
                                 rootPane.getSelectionModel().select(solution);
                                 updatesDone[0]++;
                             }
+                            break;
+                        case 3:
+                            // Check if execution time has arrived
+                            if (displayData.getRunTime() != null) {
+                                // TODO: Show execution time
+                            }
                     }
                 }
             }
