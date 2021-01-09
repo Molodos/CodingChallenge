@@ -142,7 +142,7 @@ public class ProblemSolver {
      */
     private static boolean maximizeFreeSpace(Truck truckA, Truck truckB, int maxTupleSize, DisplayData displayData) {
         // Initialize exchange group
-        ItemExchangeGroup exchangeGroup = new ItemExchangeGroup();
+        ItemExchangeGroup exchangeGroup = new ItemExchangeGroup(true);
 
         // Local variable to store whether or not modifications were made to truck load
         boolean modificationsMade = false;
@@ -229,7 +229,7 @@ public class ProblemSolver {
      */
     private static boolean maximizeValue(Truck truck, ItemList items, int maxTupleSize, DisplayData displayData) {
         // Initialize exchange group
-        ItemExchangeGroup exchangeGroup = new ItemExchangeGroup();
+        ItemExchangeGroup exchangeGroup = new ItemExchangeGroup(false);
 
         // Local variable to store whether or not modifications were made to truck load
         boolean modificationsMade = false;
@@ -256,7 +256,7 @@ public class ProblemSolver {
                             items.addItem(item);
 
                             // Save exchange to group
-                            exchangeGroup.addExchange(new ItemExchange(item, truck.getName(), "[Nicht verladene Hardware]"));
+                            exchangeGroup.addExchange(new ItemExchange(item, truck.getName(), "[Ausladen]"));
                         }
 
                         // Refill truck by exchanging replace tuple from unused items to truck load
@@ -265,7 +265,7 @@ public class ProblemSolver {
                             truck.addItem(item);
 
                             // Save exchange to group
-                            exchangeGroup.addExchange(new ItemExchange(item, "[Nicht verladene Hardware]", truck.getName()));
+                            exchangeGroup.addExchange(new ItemExchange(item, "[Einladen]", truck.getName()));
                         }
 
                         // Add spacer to exchange group

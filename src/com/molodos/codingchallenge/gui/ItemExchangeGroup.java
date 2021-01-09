@@ -13,6 +13,18 @@ public class ItemExchangeGroup {
     // List with all the exchanges the group contains
     private final ArrayList<ItemExchange> exchanges = new ArrayList<>();
 
+    // True if exchange between trucks
+    private final boolean betweenTrucks;
+
+    /**
+     * Create item exchange group by its parameters.
+     *
+     * @param betweenTrucks true if the exchange is between two trucks
+     */
+    public ItemExchangeGroup(boolean betweenTrucks) {
+        this.betweenTrucks = betweenTrucks;
+    }
+
     /**
      * Adds an exchange to the group.
      *
@@ -20,6 +32,15 @@ public class ItemExchangeGroup {
      */
     public void addExchange(ItemExchange exchange) {
         exchanges.add(exchange);
+    }
+
+    /**
+     * Check whether or not the exchange is between two trucks.
+     *
+     * @return True if it is between two trucks, else false
+     */
+    public boolean isTruckExchange() {
+        return betweenTrucks;
     }
 
     /**

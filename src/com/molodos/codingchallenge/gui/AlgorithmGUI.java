@@ -63,9 +63,9 @@ public class AlgorithmGUI extends Application {
         // Create tabs
         Tab items = new Tab("Verfügbare Hardware", getItemTable(displayData.getInitialList(), true, "Anzahl verfügbar"));
         Tab trucks = new Tab("Verfügbare Transporter", getTruckTable(displayData.getInitialTrucks()));
-        Tab initial = new Tab("Nach erster Beladung", getLoadingPane());
-        Tab optimization = new Tab("Optimierungsvorgänge", getLoadingPane());
-        Tab solution = new Tab("Finale Beladung", getLoadingPane());
+        Tab initial = new Tab("Nach erster Beladung", getTextPane(LOADING));
+        Tab optimization = new Tab("Optimierungsvorgänge", getTextPane(LOADING));
+        Tab solution = new Tab("Finale Beladung", getTextPane(LOADING));
 
         // Set all tabs to not closeable
         items.setClosable(false);
@@ -136,11 +136,16 @@ public class AlgorithmGUI extends Application {
      * @return Created tabber
      */
     private Node getOptimizationTabber(List<ItemExchangeGroup> exchangeGroups) {
+        // Return text if no optimizations had to be done
+        if(exchangeGroups.size() == 0) {
+            return getTextPane("Es waren keine Optimierungen notwendig");
+        }
+
         // Initialize tab pane as root pane
         TabPane optimizationTabber = new TabPane();
 
         // Create tabs for all exchange groups
-        for(int i = 0; i < exchangeGroups.size(); i++) {
+        for (int i = 0; i < exchangeGroups.size(); i++) {
             Tab exchangeTab = new Tab(String.valueOf(i + 1), getOptimizationTable(exchangeGroups.get(i)));
             exchangeTab.setClosable(false);
             optimizationTabber.getTabs().add(exchangeTab);
@@ -178,6 +183,17 @@ public class AlgorithmGUI extends Application {
         table.getColumns().add(destination);
         table.getColumns().add(itemName);
         table.getColumns().add(units);
+
+        // Add weight or value details
+        if (exchangeGroup.isTruckExchange()) {
+            TableColumn<ItemExchange, String> weight = new TableColumn<>("Gewicht gesamt");
+            weight.setCellValueFactory(new PropertyValueFactory<>("totalWeight"));
+            table.getColumns().add(weight);
+        } else {
+            TableColumn<ItemExchange, String> value = new TableColumn<>("Nutzwert gesamt");
+            value.setCellValueFactory(new PropertyValueFactory<>("totalValue"));
+            table.getColumns().add(value);
+        }
 
         // Add exchanges to table
         table.getItems().addAll(exchangeGroup.getExchanges());
@@ -512,14 +528,15 @@ public class AlgorithmGUI extends Application {
     }
 
     /**
-     * Retrieve a pane just containing a centering loading information text.
+     * Retrieve a pane just containing a centered information text.
      *
-     * @return Loading pane
+     * @param text Text to be cantered
+     * @return Pane with centered text
      */
-    private Node getLoadingPane() {
+    private Node getTextPane(String text) {
         // Create a pane and a text
         StackPane loading = new StackPane();
-        Text loadingText = new Text(LOADING);
+        Text loadingText = new Text(text);
 
         // Canter the text on the pane
         loadingText.setTextAlignment(TextAlignment.CENTER);

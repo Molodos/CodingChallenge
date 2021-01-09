@@ -2,6 +2,8 @@ package com.molodos.codingchallenge.gui;
 
 import com.molodos.codingchallenge.models.Item;
 
+import java.text.DecimalFormat;
+
 /**
  * This class models an exchange of items between two item containing instances.
  *
@@ -71,5 +73,29 @@ public class ItemExchange {
      */
     public String getDestination() {
         return destination;
+    }
+
+    /**
+     * Getter for formatted total weight of item.
+     *
+     * @return Formatted total weight of item or null if spacer
+     */
+    public String getTotalWeight() {
+        if(item.getTotalWeight() == 0) {
+            return null;
+        }
+        return new DecimalFormat("0.#####g").format(item.getTotalWeight());
+    }
+
+    /**
+     * Getter for formatted total value of item.
+     *
+     * @return Formatted total value of item or null if spacer
+     */
+    public String getTotalValue() {
+        if(item.getTotalValue() == 0) {
+            return null;
+        }
+        return new DecimalFormat("0.#####").format(item.getTotalValue());
     }
 }
