@@ -54,16 +54,16 @@ Java JDK 8 muss installiert sein
 
 ### 4.2 Ausführung
 #### 4.2.1 Linux
-1. Im Stammverzeichnis des Repositories das Skript `start.sh` lokalisieren
-2. Das Skript entweder per Doppelklick oder aus der Konsole mit dem Befehle `sh ./start.sh` ausführen
+1. Im Stammverzeichnis des Repositories das Skript `start.sh` (`start_nogui.sh`, falls ohne Benutzeroberfläche gestartet werden soll) lokalisieren
+2. Das Skript entweder per Doppelklick oder aus der Konsole mit dem Befehle `sh ./start.sh` (`sh ./start_nogui.sh`, falls ohne Benutzeroberfläche gestartet werden soll) ausführen
 3. Das Programm wird nun kompiliert um anschließend automatisch ausgeführt
-4. Die Lösung erscheint nach der Berechnung in der Konsole und in der sich öffnenden Benutzeroberfläche. Außerdem wird sie in der Datei `solution.csv` gespeichert
+4. Die Lösung erscheint nach der Berechnung in der Konsole und in der sich wahlweise öffnenden Benutzeroberfläche. Außerdem wird sie in der Datei `solution.csv` gespeichert
 
 #### 4.2.2 Windows
-1. Im Stammverzeichnis des Repositories das Skript `start.bat` lokalisieren
-2. Das Skript entweder per Doppelklick oder aus der Konsole mit dem Befehle `./start.bat` ausführen
+1. Im Stammverzeichnis des Repositories das Skript `start.bat` (`start_nogui.bat`, falls ohne Benutzeroberfläche gestartet werden soll) lokalisieren
+2. Das Skript entweder per Doppelklick oder aus der Konsole mit dem Befehle `.\start.bat` (`.\start_nogui.bar`, falls ohne Benutzeroberfläche gestartet werden soll) ausführen
 3. Das Programm wird nun kompiliert um anschließend automatisch ausgeführt
-4. Die Lösung erscheint nach der Berechnung in der Konsole und in der sich öffnenden Benutzeroberfläche. Außerdem wird sie in der Datei `solution.csv` gespeichert
+4. Die Lösung erscheint nach der Berechnung in der Konsole und in der sich wahlweise öffnenden Benutzeroberfläche. Außerdem wird sie in der Datei `solution.csv` gespeichert
 
 ### 4.3 Benutzeroberfläche
 Die Benutzeroberfläche visualisiert den Verlauf des Algorithmus und die Lösung. Dazu ist sie in fünf tabs untergliedert:
