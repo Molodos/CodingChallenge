@@ -50,7 +50,11 @@ Aufgrund der soeben diskutierten schlechten Eignung der vorhandenen Lösungsmög
 
 ## 4. Ausführung des Lösungsprogramms
 ### 4.1 Voraussetzungen
-Java JDK 8 muss installiert sein
+Java JDK 8 oder OpenJDK JDK 8 muss installiert sein (aufgrund des integrierten JavaFX in Java 8 muss zwingend Version 8 verwendet werden)
+
+Installation von OpenJDK JDK 8 unter Linux:
+* Debian, Ubuntu, etc.: `sudo apt-get install openjdk-8-jdk`
+* Fedora, Oracle Linux, Red Hat Enterprise Linux, etc.: `su -c "yum install java-1.8.0-openjdk-devel"`
 
 ### 4.2 Ausführung
 #### 4.2.1 Linux
