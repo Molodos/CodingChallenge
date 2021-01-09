@@ -26,9 +26,17 @@ public class ProblemSolver {
      * Main method is executed on programm start.
      * Opens GUI, loads items and trucks and calculates an optimal loading list to load the trucks with a maximum total value.
      *
-     * @param args Command line arguments (currently the program doesn't take any command line arguments)
+     * @param args Command line arguments: "-nogui" will disable the GUI
      */
     public static void main(String[] args) {
+        // Check args for "-nogui"
+        boolean showGui = true;
+        for(String arg : args) {
+            if(arg.trim().equalsIgnoreCase("-nogui")) {
+                showGui = false;
+            }
+        }
+
         // Initialize run time counting
         long startTime = System.currentTimeMillis();
 
@@ -38,9 +46,11 @@ public class ProblemSolver {
         Truck[] trucks = DataProvider.getTrucks();
         System.out.println("fertig");
 
-        // Initialize and start GUI
+        // Initialize and start GUI (if enabled)
         DisplayData displayData = new DisplayData(items, trucks);
-        AlgorithmGUI.startGUI(displayData);
+        if(showGui) {
+            AlgorithmGUI.startGUI(displayData);
+        }
 
         // Initially fill trucks with most efficient items
         System.out.print("Transporter werden befüllt...");

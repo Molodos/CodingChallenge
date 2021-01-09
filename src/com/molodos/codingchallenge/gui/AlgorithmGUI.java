@@ -7,6 +7,7 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.Node;
@@ -14,12 +15,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
+import javax.swing.*;
 import java.text.DecimalFormat;
 import java.util.List;
 
@@ -57,15 +60,16 @@ public class AlgorithmGUI extends Application {
      */
     @Override
     public void start(Stage primaryStage) {
-        // Initialize tab pane as root pane
-        TabPane rootPane = new TabPane();
+        // Initialize border pane as root pane
+        BorderPane rootPane = new BorderPane();
 
         // Create tabs
+        TabPane mainTabPane = new TabPane();
         Tab items = new Tab("Verfügbare Hardware", getItemTable(displayData.getInitialList(), true, "Anzahl verfügbar"));
         Tab trucks = new Tab("Verfügbare Transporter", getTruckTable(displayData.getInitialTrucks()));
-        Tab initial = new Tab("Nach erster Beladung", getTextPane(LOADING));
-        Tab optimization = new Tab("Optimierungsvorgänge", getTextPane(LOADING));
-        Tab solution = new Tab("Finale Beladung", getTextPane(LOADING));
+        Tab initial = new Tab("Nach erster Beladung", getTextPane(LOADING, true));
+        Tab optimization = new Tab("Optimierungsvorgänge", getTextPane(LOADING, true));
+        Tab solution = new Tab("Finale Beladung", getTextPane(LOADING, true));
 
         // Set all tabs to not closeable
         items.setClosable(false);
@@ -74,8 +78,12 @@ public class AlgorithmGUI extends Application {
         optimization.setClosable(false);
         solution.setClosable(false);
 
-        // Add tabs to tab pane
-        rootPane.getTabs().addAll(items, trucks, initial, optimization, solution);
+        // Add tabs to tab pane and tab pane to root pane
+        mainTabPane.getTabs().addAll(items, trucks, initial, optimization, solution);
+        rootPane.setCenter(mainTabPane);
+
+        // Create and add status line
+        rootPane.setBottom(getTextPane("Status: Berechnung", false));
 
         // Initialize main scene with root pane, title and styles (if found)
         Scene scene = new Scene(rootPane);
@@ -103,7 +111,7 @@ public class AlgorithmGUI extends Application {
                             // Check if initial loading is done
                             if (displayData.getAfterFirstLoadList() != null) {
                                 initial.setContent(getDetailsTabber(displayData.getAfterFirstLoadTrucks(), displayData.getAfterFirstLoadList()));
-                                rootPane.getSelectionModel().select(initial);
+                                mainTabPane.getSelectionModel().select(initial);
                                 updatesDone[0]++;
                             }
                             break;
@@ -111,7 +119,7 @@ public class AlgorithmGUI extends Application {
                             // Check if optimization exchanges
                             if (displayData.getExchangeGroups() != null) {
                                 optimization.setContent(getOptimizationTabber(displayData.getExchangeGroups()));
-                                rootPane.getSelectionModel().select(optimization);
+                                mainTabPane.getSelectionModel().select(optimization);
                                 updatesDone[0]++;
                             }
                             break;
@@ -119,14 +127,14 @@ public class AlgorithmGUI extends Application {
                             // Check if final solution arrived
                             if (displayData.getAfterOptimizationList() != null) {
                                 solution.setContent(getDetailsTabber(displayData.getAfterOptimizationTrucks(), displayData.getAfterOptimizationList()));
-                                rootPane.getSelectionModel().select(solution);
+                                mainTabPane.getSelectionModel().select(solution);
                                 updatesDone[0]++;
                             }
                             break;
                         case 3:
                             // Check if execution time has arrived
                             if (displayData.getRunTime() != null) {
-                                // TODO: Show execution time
+                                rootPane.setBottom(getTextPane("Status: Fertig | Berechnungsdauer: " + displayData.getRunTime(), false));
                             }
                     }
                 }
@@ -144,7 +152,7 @@ public class AlgorithmGUI extends Application {
     private Node getOptimizationTabber(List<ItemExchangeGroup> exchangeGroups) {
         // Return text if no optimizations had to be done
         if(exchangeGroups.size() == 0) {
-            return getTextPane("Es waren keine Optimierungen notwendig");
+            return getTextPane("Es waren keine Optimierungen notwendig", true);
         }
 
         // Initialize tab pane as root pane
@@ -539,17 +547,17 @@ public class AlgorithmGUI extends Application {
      * @param text Text to be cantered
      * @return Pane with centered text
      */
-    private Node getTextPane(String text) {
+    private Node getTextPane(String text, boolean center) {
         // Create a pane and a text
-        StackPane loading = new StackPane();
-        Text loadingText = new Text(text);
+        StackPane textPane = new StackPane();
+        Text contentText = new Text(text);
 
-        // Canter the text on the pane
-        loadingText.setTextAlignment(TextAlignment.CENTER);
-        loading.getChildren().add(loadingText);
-        StackPane.setAlignment(loadingText, Pos.CENTER);
+        // Center the text on the pane
+        textPane.getChildren().add(contentText);
+        StackPane.setAlignment(contentText, center ? Pos.CENTER : Pos.CENTER_LEFT);
+        StackPane.setMargin(contentText, new Insets(5, 10, 5, 10));
 
         // Return pane
-        return loading;
+        return textPane;
     }
 }
