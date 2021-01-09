@@ -6,4 +6,5 @@ cp ./src/com/molodos/codingchallenge/gui/*.css ./classes/com/molodos/codingchall
 printf "done\n"
 printf "Executing program..."
 printf "done\n\n\n"
-java -Dfile.encoding=UTF-8 -cp ./classes com.molodos.codingchallenge.ProblemSolver
+java -Dfile.encoding=UTF-8 -cp ./classes com.molodos.codingchallenge.ProblemSolver -nogui
+read -p "Zum Beenden eine beliebige Taste drücken..."

@@ -9,4 +9,6 @@ echo | set /p=Executing program...
 echo done
 echo.
 echo.
-java -Dfile.encoding=UTF-8 -cp .\classes com.molodos.codingchallenge.ProblemSolver
+java -Dfile.encoding=UTF-8 -cp .\classes com.molodos.codingchallenge.ProblemSolver -nogui
+echo Zum Beenden eine beliebige Taste drücken...
+pause>nul

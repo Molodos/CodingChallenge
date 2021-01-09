@@ -69,6 +69,24 @@ public class Item implements Comparable<Item> {
     }
 
     /**
+     * Returns the value of the item.
+     *
+     * @return Value of the item
+     */
+    public double getValue() {
+        return value;
+    }
+
+    /**
+     * Returns the efficiency of the item.
+     *
+     * @return Efficiency of the item
+     */
+    public double getEfficiency() {
+        return efficiency;
+    }
+
+    /**
      * Returns the number of units of this item available.
      *
      * @return Units of this item available

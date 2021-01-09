@@ -33,12 +33,38 @@ public class Truck extends ItemList {
     }
 
     /**
+     * Creates a copy of the Truck object.
+     *
+     * @return Copied Truck object
+     */
+    @Override
+    public Truck copy() {
+        // Create new truck
+        Truck copy = new Truck(name, capacity, driverWeight);
+
+        // Copy all items and return
+        for (Item item : getItems()) {
+            copy.addItem(item.copy(item.getUnits()));
+        }
+        return copy;
+    }
+
+    /**
      * Returns the total truck capacity.
      *
-     * @return total truck capacity
+     * @return Total truck capacity
      */
     public double getCapacity() {
         return capacity;
+    }
+
+    /**
+     * Returns the driver weight.
+     *
+     * @return Driver weight
+     */
+    public double getDriverWeight() {
+        return driverWeight;
     }
 
     /**
@@ -60,8 +86,10 @@ public class Truck extends ItemList {
         DecimalFormat decimalFormat = new DecimalFormat("0.#####");
         return String.format("%s:%n" +
                 "%s%n" +
-                "Gewicht inklusive Fahrer: %sg%n" +
-                "Freie Kapazität:          %sg%n" +
-                "Nutzwert:                 %s", name, super.toString(), decimalFormat.format(capacity - driverWeight), decimalFormat.format(getRemainingCapacity()), decimalFormat.format(getTotalValue()));
+                "Kapazität:       %sg%n" +
+                "Gewicht Fahrer:  %sg%n" +
+                "Gewicht gesamt:  %sg%n" +
+                "Freie Kapazität: %sg%n" +
+                "Nutzwert:        %s", name, super.toString(), decimalFormat.format(getCapacity()), decimalFormat.format(getDriverWeight()), decimalFormat.format(getCapacity() - getRemainingCapacity()), decimalFormat.format(getRemainingCapacity()), decimalFormat.format(getTotalValue()));
     }
 }

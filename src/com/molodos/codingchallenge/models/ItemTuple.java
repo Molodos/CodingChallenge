@@ -35,7 +35,24 @@ public class ItemTuple {
      * @return A list of all the items, the item tuple contains
      */
     public List<Item> getAllItems() {
-        return items;
+        // Group items if several instances of the same type exist
+        List<Item> groupedItems = new ArrayList<>();
+        addLoop:
+        for (Item item : items) {
+            // Add units if already exists
+            for (Item groupedItem : groupedItems) {
+                if (groupedItem.equals(item)) {
+                    groupedItem.addUnits(item.getUnits());
+                    continue addLoop;
+                }
+            }
+
+            // Else add a copy of the item to the list
+            groupedItems.add(item.copy(item.getUnits()));
+        }
+
+        // Return grouped list
+        return groupedItems;
     }
 
     /**
