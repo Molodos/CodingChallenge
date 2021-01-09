@@ -29,6 +29,9 @@ public class DisplayData {
     private ItemList afterOptimizationList = null;
     private Truck[] afterOptimizationTrucks = null;
 
+    // Runtime
+    private Long runTime = null;
+
     /**
      * Construct a DisplayData objects by the program input data.
      *
@@ -106,6 +109,15 @@ public class DisplayData {
     }
 
     /**
+     * Sets run time to make it available for GUI visualisation.
+     *
+     * @param runTime Run time of algorithm in milliseconds
+     */
+    public void setRunTime(long runTime) {
+        this.runTime = runTime;
+    }
+
+    /**
      * Getter for initial item list.
      *
      * @return Initial item list
@@ -166,5 +178,44 @@ public class DisplayData {
      */
     public Truck[] getAfterOptimizationTrucks() {
         return afterOptimizationTrucks;
+    }
+
+    /**
+     * Get formatted algorithm run time if already available.
+     *
+     * @return Formatted run time or null if not available yet
+     */
+    public String getRunTime() {
+        // Return null if nur available yet
+        if (runTime == null) {
+            return null;
+        }
+
+        // Calculate days, hours, minutes, seconds and milliseconds
+        int milliseconds = (int) (runTime % 1000);
+        int seconds = (int) (runTime / 1000.0);
+        int minutes = (int) (seconds / 60.0);
+        seconds %= 60;
+        int hours = (int) (minutes / 60.0);
+        minutes %= 60;
+        int days = (int) (hours / 24.0);
+        hours %= 24;
+
+        // Format
+        StringBuilder formatted = new StringBuilder();
+        if(days > 0) {
+            formatted.append(days).append(days == 1 ? " Tag und " : " Tage und ").append(hours).append(hours == 1 ? " Stunde" : " Stunden");
+        } else if(hours > 0) {
+            formatted.append(hours).append(hours == 1 ? " Stunde und " : " Stunden und ").append(minutes).append(minutes == 1 ? " Minute" : " Minuten");
+        } else if(minutes > 0) {
+            formatted.append(minutes).append(minutes == 1 ? " Minute und " : " Minuten und ").append(seconds).append(seconds == 1 ? " Sekunde" : " Sekunden");
+        } else if(seconds > 0) {
+            formatted.append(seconds).append(seconds == 1 ? " Sekunde und " : " Sekunden und ").append(milliseconds).append(milliseconds == 1 ? " Millisekunde" : " Millisekunden");
+        } else {
+            formatted.append(milliseconds).append(milliseconds == 1 ? " Millisekunde" : " Millisekunden");
+        }
+
+        // Return
+        return formatted.toString();
     }
 }

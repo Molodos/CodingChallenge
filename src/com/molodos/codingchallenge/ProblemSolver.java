@@ -29,6 +29,9 @@ public class ProblemSolver {
      * @param args Command line arguments (currently the program doesn't take any command line arguments)
      */
     public static void main(String[] args) {
+        // Initialize run time counting
+        long startTime = System.currentTimeMillis();
+
         // Use DataProvider to load items and trucks
         System.out.print("Hardware und Transporter werden eingelesen...");
         ItemList items = DataProvider.getSortedItems();
@@ -60,6 +63,11 @@ public class ProblemSolver {
         // Print calculated optimal loading list for the trucks and some other stats
         System.out.println("Ergebnisse werden ausgegeben...");
         printStats(trucks, items);
+
+        // Save and print run time
+        long runTime = System.currentTimeMillis() - startTime;
+        displayData.setRunTime(runTime);
+        System.out.println("\n(Ausführungsdauer: " + displayData.getRunTime() + ")");
     }
 
 
