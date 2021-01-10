@@ -5,5 +5,3 @@ javac -encoding utf8 ./src/com/molodos/codingchallenge/*.java ./src/com/molodos/
 printf "done\n"
 printf "Executing program...\n\n\n"
 java -Dfile.encoding=UTF-8 -cp ./classes com.molodos.codingchallenge.ProblemSolver
-printf "Zum Beenden eine beliebige Taste drücken...\n"
-read read

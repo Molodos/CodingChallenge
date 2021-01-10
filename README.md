@@ -1,5 +1,5 @@
 # Coding Challenge Dokumentation
-## Inhalt
+## Inhalt ![](https://github.com/Molodos/CodingChallenge/blob/main/images/truck.png?raw=true)
 1. [Analyse der Problemstellung](#1-analyse-der-problemstellung)
 2. [Ungeeignete Lösungsansätze](#2-ungeeignete-lösungsansätze)
 3. [Eigener Algorithmus zur Lösung](#3-eigener-algorithmus-zur-lösung)
@@ -54,20 +54,29 @@ Aufgrund der soeben diskutierten schlechten Eignung der vorhandenen Lösungsmög
 Java SE Development Kit 8 [(kann hier heruntergeladen werden)](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html) muss installiert sein (da JavaFX in der Version integriert ist, ist diese zwingend erforderlich, falls die Benutzeroberfläche verwendet werden soll)
 > Die Ausführung unter Windows wird empfohlen
 
-#### 4.1.2 Optionen unter Verzicht auf die Benutzeroberfläche
-Falls die Darstellung in der Konsole ausreicht (etwas weniger übersichtliche Darstellung und Verzicht auf Visualisierung der Optimierungsvorgänge), kann ein beliebiges Java Development Kit, wie zum Beispiel OpenJDK verwendet werden, solange die Version mindestens 8 ist.
+#### 4.1.2 Optionen unter Verzicht auf die grafische Benutzeroberfläche
+Falls die Darstellung in der Konsole ausreicht (etwas weniger übersichtliche Darstellung und Verzicht auf Visualisierung der Optimierungsvorgänge), kann ein beliebiges Java Development Kit, wie zum Beispiel OpenJDK oder AdoptOpenJDK, verwendet werden, solange die Version mindestens 8 ist. Anschließend muss beim Starten des Programms die `_nogui`-Version gewählt werden.
 > **Wichtig:** Ein JRE (Java Runtime Environment) reicht nicht aus, da damit der Code nicht kompiliert werden kann
 
+OpenJDK 8 JDK Installation unter Linux:
+* Debian, Ubuntu, etc.: `sudo apt-get install openjdk-8-jdk`
+* Fedora, Oracle Linux, Red Hat Enterprise Linux, etc.: `su -c "yum install java-1.8.0-openjdk-devel"`
+
+AdoptOpenJDK 8 JDK Installation unter Windows:
+1. Downloadseite öffnen [(zur Downloadseite)](https://adoptopenjdk.net/releases.html?variant=openjdk8&jvmVariant=hotspot)
+2. Richtige Windows-Version (*x86* oder *x64*) auswählen und die Installationsdatei (*.msi*) für **JDK** herunterladen
+3. Die Installationsdatei ausführen und den Anweisungen folgen
+
 ### 4.2 Ausführung
-#### 4.2.1 Linux
-1. Im Stammverzeichnis des Repositories das Skript `start.sh` (`start_nogui.sh`, falls ohne Benutzeroberfläche gestartet werden soll) lokalisieren
-2. Das Skript entweder per Doppelklick oder aus der Konsole mit dem Befehle `sh ./start.sh` (`sh ./start_nogui.sh`, falls ohne Benutzeroberfläche gestartet werden soll) ausführen
+#### 4.2.1 Windows
+1. Im Stammverzeichnis des Repositories das Skript `start.bat` (`start_nogui.bat`, falls ohne Benutzeroberfläche gestartet werden soll) lokalisieren
+2. Das Skript entweder per Doppelklick oder aus der Konsole mit dem Befehle `.\start.bat` (`.\start_nogui.bar`, falls ohne Benutzeroberfläche gestartet werden soll) ausführen
 3. Das Programm wird nun kompiliert um anschließend automatisch ausgeführt
 4. Die Lösung erscheint nach der Berechnung in der Konsole und in der sich wahlweise öffnenden Benutzeroberfläche. Außerdem wird sie in der Datei `solution.csv` gespeichert
 
-#### 4.2.2 Windows
-1. Im Stammverzeichnis des Repositories das Skript `start.bat` (`start_nogui.bat`, falls ohne Benutzeroberfläche gestartet werden soll) lokalisieren
-2. Das Skript entweder per Doppelklick oder aus der Konsole mit dem Befehle `.\start.bat` (`.\start_nogui.bar`, falls ohne Benutzeroberfläche gestartet werden soll) ausführen
+#### 4.2.2 Linux
+1. Im Stammverzeichnis des Repositories das Skript `start.sh` (`start_nogui.sh`, falls ohne Benutzeroberfläche gestartet werden soll) lokalisieren
+2. Das Skript aus der Konsole mit dem Befehle `sh ./start.sh` (`sh ./start_nogui.sh`, falls ohne Benutzeroberfläche gestartet werden soll) ausführen
 3. Das Programm wird nun kompiliert um anschließend automatisch ausgeführt
 4. Die Lösung erscheint nach der Berechnung in der Konsole und in der sich wahlweise öffnenden Benutzeroberfläche. Außerdem wird sie in der Datei `solution.csv` gespeichert
 

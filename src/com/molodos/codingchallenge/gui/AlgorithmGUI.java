@@ -105,7 +105,7 @@ public class AlgorithmGUI extends Application {
         Scene scene = new Scene(rootPane);
         primaryStage.setScene(scene);
         primaryStage.setTitle(TITLE);
-        primaryStage.getIcons().add(new Image("file:truck.png"));
+        primaryStage.getIcons().add(new Image("file:images/truck.png"));
         try {
             scene.getStylesheets().add(AlgorithmGUI.class.getResource("AlgorithmGUI.css").toExternalForm());
         } catch (Exception e) {
