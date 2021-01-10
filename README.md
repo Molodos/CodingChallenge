@@ -1,5 +1,5 @@
 # Coding Challenge Dokumentation
-## Inhalt ![](https://github.com/Molodos/CodingChallenge/blob/main/images/truck.png?raw=true)
+## Inhalt ![](https://github.com/Molodos/CodingChallenge/blob/main/images/truck_low.png?raw=true)
 1. [Analyse der Problemstellung](#1-analyse-der-problemstellung)
 2. [Ungeeignete Lösungsansätze](#2-ungeeignete-lösungsansätze)
 3. [Eigener Algorithmus zur Lösung](#3-eigener-algorithmus-zur-lösung)
