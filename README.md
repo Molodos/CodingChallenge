@@ -54,9 +54,9 @@ Aufgrund der soeben diskutierten schlechten Eignung der vorhandenen Lösungsmög
 Java SE Development Kit 8 [(kann hier heruntergeladen werden)](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html) muss installiert sein (da JavaFX in der Version integriert ist, ist diese zwingend erforderlich, falls die Benutzeroberfläche verwendet werden soll)
 > Die Ausführung unter Windows wird empfohlen
 
-#### 4.1.2 Optionen unter verzicht auf die Benutzeroberfläche
+#### 4.1.2 Optionen unter Verzicht auf die Benutzeroberfläche
 Falls die Darstellung in der Konsole ausreicht (etwas weniger übersichtliche Darstellung und Verzicht auf Visualisierung der Optimierungsvorgänge), kann ein beliebiges Java Development Kit, wie zum Beispiel OpenJDK verwendet werden, solange die Version mindestens 8 ist.
-> **Wichtig:** Ein JRE (Java Runtime Environment) reicht nicht aus, da damit der Code nicht kompiliert werden kann 
+> **Wichtig:** Ein JRE (Java Runtime Environment) reicht nicht aus, da damit der Code nicht kompiliert werden kann
 
 ### 4.2 Ausführung
 #### 4.2.1 Linux
