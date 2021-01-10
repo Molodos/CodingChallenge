@@ -1,9 +1,8 @@
 package com.molodos.codingchallenge;
 
-import com.molodos.codingchallenge.gui.AlgorithmGUI;
-import com.molodos.codingchallenge.gui.DisplayData;
-import com.molodos.codingchallenge.gui.ItemExchange;
-import com.molodos.codingchallenge.gui.ItemExchangeGroup;
+import com.molodos.codingchallenge.displaydata.DisplayData;
+import com.molodos.codingchallenge.displaydata.ItemExchange;
+import com.molodos.codingchallenge.displaydata.ItemExchangeGroup;
 import com.molodos.codingchallenge.models.Item;
 import com.molodos.codingchallenge.models.ItemList;
 import com.molodos.codingchallenge.models.ItemTuple;
@@ -21,22 +20,33 @@ import java.util.List;
  */
 public class ProblemSolver {
 
+    // Storage for execution data
+    private final DisplayData displayData;
+
     /**
-     * Main method is executed on programm start.
-     * Opens GUI, loads items and trucks and calculates an optimal loading list to load the trucks with a maximum total value.
+     * Constructs a solver object for the knapsack problem.
      *
-     * @param args Command line arguments: "-nogui" will disable the GUI
+     * @param displayData Object to store execution data to, to make it available for other threads (GUI)
+     */
+    public ProblemSolver(DisplayData displayData) {
+        this.displayData = displayData;
+    }
+
+    /**
+     * Main method is executed on programm start if no gui is selected.
+     * Loads items and trucks and calculates an optimal loading list to load the trucks with a maximum total value.
+     *
+     * @param args Command line arguments (not needed)
      */
     public static void main(String[] args) {
-        // Check args for "-nogui"
-        boolean showGui = true;
-        for (String arg : args) {
-            if (arg.trim().equalsIgnoreCase("-nogui")) {
-                showGui = false;
-                break;
-            }
-        }
+        new ProblemSolver(new DisplayData()).solve();
+    }
 
+    /**
+     * Solves the knapsack problem.
+     * Loads items and trucks and calculates an optimal loading list to load the trucks with a maximum total value.
+     */
+    public void solve() {
         // Initialize run time counting
         long startTime = System.currentTimeMillis();
 
@@ -44,13 +54,8 @@ public class ProblemSolver {
         System.out.print("Hardware und Transporter werden eingelesen...");
         ItemList items = DataProvider.getSortedItems();
         Truck[] trucks = DataProvider.getTrucks();
+        displayData.setInitialData(trucks, items);
         System.out.println("fertig");
-
-        // Initialize and start GUI (if enabled)
-        DisplayData displayData = new DisplayData(items, trucks);
-        if (showGui) {
-            AlgorithmGUI.startGUI(displayData);
-        }
 
         // Initially fill trucks with most efficient items
         System.out.print("Transporter werden befüllt...");
@@ -88,7 +93,7 @@ public class ProblemSolver {
      * @param trucks Truck objects to be filled with items
      * @param items  Items to be filled into the trucks
      */
-    private static void fillTrucks(Truck[] trucks, ItemList items) {
+    private void fillTrucks(Truck[] trucks, ItemList items) {
         // Iterate through all trucks and fill every truck on its own
         for (Truck truck : trucks) {
             // Iterate through all items not already loaded
@@ -114,7 +119,7 @@ public class ProblemSolver {
      * @param maxTupleSize Maximum item count of tuples to exchange at once (lower values lead to faster calculation)
      * @param displayData  DisplayData object to log exchanges to
      */
-    private static void optimizeTrucksLoad(Truck[] trucks, ItemList items, int maxTupleSize, DisplayData displayData) {
+    private void optimizeTrucksLoad(Truck[] trucks, ItemList items, int maxTupleSize, DisplayData displayData) {
         // Local variables to show whether or not maximizations were done in the last iteration
         boolean freeSpaceDone = true;
         boolean valueDone = true;
@@ -158,7 +163,7 @@ public class ProblemSolver {
      * @param displayData  DisplayData object to log exchanges to
      * @return true if truck load was changed, else false
      */
-    private static boolean maximizeFreeSpace(Truck truckA, Truck truckB, int maxTupleSize, DisplayData displayData) {
+    private boolean maximizeFreeSpace(Truck truckA, Truck truckB, int maxTupleSize, DisplayData displayData) {
         // Initialize exchange group
         ItemExchangeGroup exchangeGroup = new ItemExchangeGroup(true);
 
@@ -245,7 +250,7 @@ public class ProblemSolver {
      * @param displayData  DisplayData object to log exchanges to
      * @return true if truck load was changed, else false
      */
-    private static boolean maximizeValue(Truck truck, ItemList items, int maxTupleSize, DisplayData displayData) {
+    private boolean maximizeValue(Truck truck, ItemList items, int maxTupleSize, DisplayData displayData) {
         // Initialize exchange group
         ItemExchangeGroup exchangeGroup = new ItemExchangeGroup(false);
 
@@ -316,7 +321,7 @@ public class ProblemSolver {
      * @param trucks Trucks whose loaded items and according statistics should be printed
      * @param items  Unused items that should be printed
      */
-    private static void printStats(Truck[] trucks, ItemList items) {
+    private void printStats(Truck[] trucks, ItemList items) {
         // Print unloaded items
         System.out.println("\nNicht verladene Hardware:\n" + items.toString() + "\n");
 

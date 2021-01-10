@@ -50,11 +50,13 @@ Aufgrund der soeben diskutierten schlechten Eignung der vorhandenen Lösungsmög
 
 ## 4. Ausführung des Lösungsprogramms
 ### 4.1 Voraussetzungen
-Java JDK 8 oder OpenJDK JDK 8 muss installiert sein (aufgrund des integrierten JavaFX in Java 8 muss zwingend Version 8 verwendet werden)
+#### 4.1.1 Empfehlung
+Java SE Development Kit 8 [(kann hier heruntergeladen werden)](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html) muss installiert sein (da JavaFX in der Version integriert ist, ist diese zwingend erforderlich, falls die Benutzeroberfläche verwendet werden soll)
+> Die Ausführung unter Windows wird empfohlen
 
-Installation von OpenJDK JDK 8 unter Linux:
-* Debian, Ubuntu, etc.: `sudo apt-get install openjdk-8-jdk`
-* Fedora, Oracle Linux, Red Hat Enterprise Linux, etc.: `su -c "yum install java-1.8.0-openjdk-devel"`
+#### 4.1.2 Optionen unter verzicht auf die Benutzeroberfläche
+Falls die Darstellung in der Konsole ausreicht (etwas weniger übersichtliche Darstellung und Verzicht auf Visualisierung der Optimierungsvorgänge), kann ein beliebiges Java Development Kit, wie zum Beispiel OpenJDK verwendet werden, solange die Version mindestens 8 ist.
+> **Wichtig:** Ein JRE (Java Runtime Environment) reicht nicht aus, da damit der Code nicht kompiliert werden kann 
 
 ### 4.2 Ausführung
 #### 4.2.1 Linux
@@ -77,6 +79,7 @@ Die Benutzeroberfläche visualisiert den Verlauf des Algorithmus und die Lösung
 * **Optimierungsvorgänge**: Visualisiert die getätigten Aktionen der Schritte *4.* bis *6.*, um den Gesamt-Nutzwert zu maximieren
 * **Finale Beladung**: Zeigt den Finalen Zustand der Beladung nach der ausführung des gesamten Algorithmus und damit die Lösung
 
+![](https://github.com/Molodos/CodingChallenge/blob/main/images/gui.png?raw=true)
 > In den Tabs **Nach erster Beladung** und **Finale Beladung** kann die Ansicht jeweils zwischen *Übersicht*, *Ladeliste* und *Übrige Hardware* gewechselt werden, um spezifische Informationen zu erhalten 
 
 ## 5. Lösung

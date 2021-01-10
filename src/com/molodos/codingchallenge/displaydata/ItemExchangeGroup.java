@@ -1,4 +1,4 @@
-package com.molodos.codingchallenge.gui;
+package com.molodos.codingchallenge.displaydata;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,5 +1,9 @@
 package com.molodos.codingchallenge.gui;
 
+import com.molodos.codingchallenge.ProblemSolver;
+import com.molodos.codingchallenge.displaydata.DisplayData;
+import com.molodos.codingchallenge.displaydata.ItemExchange;
+import com.molodos.codingchallenge.displaydata.ItemExchangeGroup;
 import com.molodos.codingchallenge.models.Item;
 import com.molodos.codingchallenge.models.ItemList;
 import com.molodos.codingchallenge.models.Truck;
@@ -38,11 +42,26 @@ public class AlgorithmGUI extends Application {
     private static volatile DisplayData displayData;
 
     /**
+     * Main method is executed on programm start if no gui is selected.
+     * Opens GUI, loads items and trucks and calculates an optimal loading list to load the trucks with a maximum total value.
+     *
+     * @param args Command line arguments (not needed)
+     */
+    public static void main(String[] args) {
+        // Initialized shared data object for gui and calculation thread
+        DisplayData displayData = new DisplayData();
+
+        // Start gui and calculation thread
+        startGUI(displayData);
+        new ProblemSolver(displayData).solve();
+    }
+
+    /**
      * Creates and shows a new GUI from the DisplayData object.
      *
      * @param displayData DisplayData object to query execution data to be displayed from
      */
-    public static void startGUI(DisplayData displayData) {
+    private static void startGUI(DisplayData displayData) {
         // Save the DisplayData object
         AlgorithmGUI.displayData = displayData;
 

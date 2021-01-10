@@ -1,4 +1,4 @@
-package com.molodos.codingchallenge.gui;
+package com.molodos.codingchallenge.displaydata;
 
 import com.molodos.codingchallenge.models.Item;
 

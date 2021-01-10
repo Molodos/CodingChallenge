@@ -1,4 +1,4 @@
-package com.molodos.codingchallenge.gui;
+package com.molodos.codingchallenge.displaydata;
 
 import com.molodos.codingchallenge.models.ItemList;
 import com.molodos.codingchallenge.models.Truck;
@@ -14,8 +14,8 @@ import java.util.List;
 public class DisplayData {
 
     // Initial input data of the program
-    private final ItemList initialList;
-    private final Truck[] initialTrucks;
+    private ItemList initialList = null;
+    private Truck[] initialTrucks = null;
 
     // Data after first load
     private ItemList afterFirstLoadList = null;
@@ -33,12 +33,12 @@ public class DisplayData {
     private Long runTime = null;
 
     /**
-     * Construct a DisplayData objects by the program input data.
+     * Setter for initial data.
      *
-     * @param items  Input items of the program
-     * @param trucks Input trucks of the program
+     * @param trucks Initial trucks
+     * @param items  Initial items
      */
-    public DisplayData(ItemList items, Truck[] trucks) {
+    public void setInitialData(Truck[] trucks, ItemList items) {
         // Save a copy of the item list
         initialList = items.copy();
 
@@ -120,7 +120,7 @@ public class DisplayData {
     /**
      * Getter for initial item list.
      *
-     * @return Initial item list
+     * @return Initial item list or null if not available yet
      */
     public ItemList getInitialList() {
         return initialList;
@@ -129,7 +129,7 @@ public class DisplayData {
     /**
      * Getter for initial truck array.
      *
-     * @return Initial truck array
+     * @return Initial truck array or null if not available yet
      */
     public Truck[] getInitialTrucks() {
         return initialTrucks;
@@ -138,7 +138,7 @@ public class DisplayData {
     /**
      * Getter for item list after first load.
      *
-     * @return Item list after first load
+     * @return Item list after first load or null if not available yet
      */
     public ItemList getAfterFirstLoadList() {
         return afterFirstLoadList;
@@ -147,7 +147,7 @@ public class DisplayData {
     /**
      * Getter for truck array after first load.
      *
-     * @return Truck array after first load
+     * @return Truck array after first load or null if not available yet
      */
     public Truck[] getAfterFirstLoadTrucks() {
         return afterFirstLoadTrucks;
@@ -156,7 +156,7 @@ public class DisplayData {
     /**
      * Returns a list of all optimization exchanges if optimization is finished.
      *
-     * @return A list of all optimization exchanges of null if optimization is not finished yet
+     * @return A list of all optimization exchanges or null if optimization is not finished yet
      */
     public List<ItemExchangeGroup> getExchangeGroups() {
         return allExchangesDone ? exchanges : null;
@@ -165,7 +165,7 @@ public class DisplayData {
     /**
      * Getter for item list after optimization.
      *
-     * @return Item list after optimization
+     * @return Item list after optimization or null if optimization is not finished yet
      */
     public ItemList getAfterOptimizationList() {
         return afterOptimizationList;
@@ -174,7 +174,7 @@ public class DisplayData {
     /**
      * Getter for truck array after optimization.
      *
-     * @return Truck array after optimization
+     * @return Truck array after optimization or null if optimization is not finished yet
      */
     public Truck[] getAfterOptimizationTrucks() {
         return afterOptimizationTrucks;
@@ -183,7 +183,7 @@ public class DisplayData {
     /**
      * Get formatted algorithm run time if already available.
      *
-     * @return Formatted run time or null if not available yet
+     * @return Formatted run time or null if not finished yet
      */
     public String getRunTime() {
         // Return null if nur available yet
