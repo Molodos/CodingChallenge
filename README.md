@@ -79,8 +79,8 @@ Die Benutzeroberfläche visualisiert den Verlauf des Algorithmus und die Lösung
 * **Optimierungsvorgänge**: Visualisiert die getätigten Aktionen der Schritte *4.* bis *6.*, um den Gesamt-Nutzwert zu maximieren
 * **Finale Beladung**: Zeigt den Finalen Zustand der Beladung nach der ausführung des gesamten Algorithmus und damit die Lösung
 
-![](https://github.com/Molodos/CodingChallenge/blob/main/images/gui.png?raw=true)
 > In den Tabs **Nach erster Beladung** und **Finale Beladung** kann die Ansicht jeweils zwischen *Übersicht*, *Ladeliste* und *Übrige Hardware* gewechselt werden, um spezifische Informationen zu erhalten 
+![](https://github.com/Molodos/CodingChallenge/blob/main/images/gui.png?raw=true)
 
 ## 5. Lösung
 ### 5.1 Optimale Verteilung der Hardware
